@@ -148,7 +148,7 @@ public class Harry_OwlController : MonoBehaviour
             _Status["Sing"] = false;
         }
 
-        if(_Animator.GetCurrentAnimatorStateInfo(0).IsTag("Look"))
+        if (_Animator.GetCurrentAnimatorStateInfo(0).IsTag("Look"))
         {
             _Status["Look"] = true;
         }
@@ -157,11 +157,18 @@ public class Harry_OwlController : MonoBehaviour
             _Status["Look"] = false;
         }
 
-        if (Input.GetKey(KeyCode.W) && !_Ctrl.isGrounded)
+        RaycastHit hit;
+        bool isOnWater = Physics.Raycast(transform.position + new Vector3(0, 0.1f, 0), Vector3.down, out hit, 0.3f, LayerMask.GetMask("Water"));
+        //Debug.Log(isOnWater);
+        if (isOnWater)
+        {
+            _Status["Fly"] = true;
+        }
+        else if (Input.GetKey(KeyCode.Space) && !_Ctrl.isGrounded)
 		{
             _Status["Fly"] = true;
         }
-        else if (!Input.GetKey(KeyCode.W) && _Ctrl.isGrounded)
+        else if (!Input.GetKey(KeyCode.Space) && _Ctrl.isGrounded && !isOnWater)
 		{
             _Status["Fly"] = false;
         }
@@ -190,15 +197,15 @@ public class Harry_OwlController : MonoBehaviour
         // Status
         if (_Status["Fly"])
 		{
-            _Animator.SetFloat("Status", _Status_fly);
+            _Animator.SetFloat("Status", Mathf.Lerp(_Animator.GetFloat("Status"), _Status_fly, Time.deltaTime * 15f));
         }
         else if(!_Status["Fly"])
 		{
-            _Animator.SetFloat("Status", _Status_ground);
+            _Animator.SetFloat("Status", Mathf.Lerp(_Animator.GetFloat("Status"), _Status_ground, Time.deltaTime * 15f));
         }
         // W KeyDown & Up
         Coroutine fly_pose = null;
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Space))
 		{
             if (_Ctrl.isGrounded)
 		    {
@@ -211,7 +218,7 @@ public class Harry_OwlController : MonoBehaviour
             fly_pose = null;
             fly_pose = StartCoroutine(FlyPose());
         }
-        else if (Input.GetKeyUp(KeyCode.W))
+        else if (Input.GetKeyUp(KeyCode.Space))
 		{
             _Animator.CrossFade("landing", 0.1f, 0, 0);
             try{
@@ -227,7 +234,7 @@ public class Harry_OwlController : MonoBehaviour
             && _Animator.GetCurrentAnimatorStateInfo(0).IsName("take_off")
             && !_Animator.IsInTransition(0))
         {
-            if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
+            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
             {
                 _Animator.CrossFade("move", 0.1f, 0, 0);
             }
@@ -239,7 +246,7 @@ public class Harry_OwlController : MonoBehaviour
             && !_Animator.IsInTransition(0)
             && _Ctrl.isGrounded)
         {
-            if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
+            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
             {
                 _Animator.CrossFade("move", 0.1f, 0, 0);
             }
@@ -248,7 +255,7 @@ public class Harry_OwlController : MonoBehaviour
             }
         }
         // rise & descent position
-        if (Input.GetKey(KeyCode.W) && !_Status["Stop"])
+        if (Input.GetKey(KeyCode.Space) && !_Status["Stop"])
 		{
 			if(this.transform.position.y < 2.5f)
 			{
@@ -279,7 +286,7 @@ public class Harry_OwlController : MonoBehaviour
     {
         float speed = 1;
         //------------------------------------------------------------ Speed
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = 2;
             _Animator.SetFloat("Speed", 1);
@@ -306,7 +313,7 @@ public class Harry_OwlController : MonoBehaviour
         }
 
         ////------------------------------------------------------------ Forward
-        //if (Input.GetKey(KeyCode.UpArrow))
+        //if (Input.GetKey(KeyCode.W))
         //{
         //    // velocity
         //    if(_Animator.GetCurrentAnimatorStateInfo(0).IsName("move") || !_Ctrl.isGrounded)
@@ -316,7 +323,7 @@ public class Harry_OwlController : MonoBehaviour
         //        MOVE_RESET();
         //    }
         //}
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S))
         {
             if(!_Animator.GetCurrentAnimatorStateInfo(0).IsName("jump"))
             {
@@ -325,29 +332,29 @@ public class Harry_OwlController : MonoBehaviour
         }
         
         ////------------------------------------------------------------ character rotation
-        //if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
+        //if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         //{
         //    this.transform.Rotate(Vector3.up, 0.5f);
         //}
-        //else if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
+        //else if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         //{
         //    this.transform.Rotate(Vector3.up, -0.5f);
         //}
-        //if (!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow))
+        //if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
         //{
         //    if(_Ctrl.isGrounded)
         //    {
-        //        if (Input.GetKeyDown(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
+        //        if (Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.A))
         //        {
         //    	    _Animator.CrossFade("move", 0.1f, 0, 0);
         //        }
-        //        else if (Input.GetKeyDown(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
+        //        else if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.D))
         //        {
         //    	    _Animator.CrossFade("move", 0.1f, 0, 0);
         //        }
         //    }
         //    // rotate stop
-        //    else if (Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.LeftArrow))
+        //    else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.A))
         //    {
         //        if(!_Animator.GetCurrentAnimatorStateInfo(0).IsName("jump"))
         //        {
@@ -370,43 +377,43 @@ public class Harry_OwlController : MonoBehaviour
     //--------------------------------------------------------------------- KEY_UP
     private void KEY_UP ()
 	{
-	    if (Input.GetKeyUp(KeyCode.UpArrow))
+	    if (Input.GetKeyUp(KeyCode.W))
         {
-            if(!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.DownArrow))
+            if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.S))
             {
                 _Animator.CrossFade("idle", 0.1f, 0, 0);
             }
         }
-        if (Input.GetKeyUp(KeyCode.LeftArrow))
+        if (Input.GetKeyUp(KeyCode.A))
         {
-            if (!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.DownArrow))
+            if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.S))
             {
                 _Animator.CrossFade("idle", 0.1f, 0, 0);
             }
         }
-        if (Input.GetKeyUp(KeyCode.RightArrow))
+        if (Input.GetKeyUp(KeyCode.D))
         {
-            if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow))
+            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
             {
                 _Animator.CrossFade("idle", 0.1f, 0, 0);
             }
         }
-        if (Input.GetKeyUp(KeyCode.DownArrow))
+        if (Input.GetKeyUp(KeyCode.S))
         {
-            if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.UpArrow))
+            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W))
             {
                 _Animator.CrossFade("idle", 0.1f, 0, 0);
             }
         }
-        //else if (!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow))
+        //else if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
         //{
-    	   // if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow))
+    	   // if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A))
         //	{
-        //        if(Input.GetKey(KeyCode.LeftArrow))
+        //        if(Input.GetKey(KeyCode.A))
         //        {
         //            _Animator.CrossFade("move", 0.1f, 0, 0);
         //        }
-        //        else if(Input.GetKey(KeyCode.RightArrow))
+        //        else if(Input.GetKey(KeyCode.D))
         //        {
         //            _Animator.CrossFade("move", 0.1f, 0, 0);
         //        }
@@ -423,7 +430,7 @@ public class Harry_OwlController : MonoBehaviour
         {
 		    if(!_Animator.IsInTransition(0))
 		    {
-				if (Input.GetKeyDown(KeyCode.S))
+				if (Input.GetKeyDown(KeyCode.E))
 				{
                     _Animator.CrossFade("jump", 0.1f, 0, 0);
 					_MoveDirection.y = 2.5f;
@@ -431,7 +438,7 @@ public class Harry_OwlController : MonoBehaviour
 				}
                 if(_Animator.GetCurrentAnimatorStateInfo(0).IsName("jump"))
                 {
-                    if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+                    if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
                     {
                         _Animator.CrossFade("move", 0.1f, 0, 0);
                     }
@@ -474,7 +481,7 @@ public class Harry_OwlController : MonoBehaviour
     //--------------------------------------------------------------------- ATTACK
     private void ATTACK ()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.E))
 	    {
 	    	_Animator.CrossFade("attack_charge", 0.1f, 0, 0);
 		}
@@ -513,7 +520,7 @@ public class Harry_OwlController : MonoBehaviour
     {
         if(_Ctrl.isGrounded)
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.T))
     	    {
 	        	_Animator.CrossFade("look_around", 0.1f, 0, 0);
 		    }

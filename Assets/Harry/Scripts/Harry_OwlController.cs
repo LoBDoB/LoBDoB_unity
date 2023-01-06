@@ -303,13 +303,13 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
         {
             speed = 2;
             //_Animator.SetFloat("Speed", 1);
-            photonView.RPC("RPCSetFloat", RpcTarget.All, "Speed", 1);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "Speed", 1f);
         }
         else 
         {
             speed = 1;
             //_Animator.SetFloat("Speed", 0);
-            photonView.RPC("RPCSetFloat", RpcTarget.All, "Speed", 0);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "Speed", 0f);
         }
 
         float h = Input.GetAxisRaw("Horizontal");

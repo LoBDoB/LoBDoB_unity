@@ -220,7 +220,6 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
 		{
             if (_Ctrl.isGrounded)
 		    {
-                //photonView.RPC("RPCCrossFade", RpcTarget.All, "take_off", 0.1f);
                 photonView.RPC("RPCCrossFade", RpcTarget.All, "take_off", 0.1f);
             }
             else if (!_Ctrl.isGrounded)
@@ -288,9 +287,11 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
     {
         while(true) {
             yield return new WaitForSeconds(2.0f);
-            _Animator.SetFloat("FlyPose", _Pose_gliding);
+            //_Animator.SetFloat("FlyPose", _Pose_gliding);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "FlyPose", _Pose_gliding);
             yield return new WaitForSeconds(2.0f);
-            _Animator.SetFloat("FlyPose", _Pose_fly);
+            //_Animator.SetFloat("FlyPose", _Pose_fly);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "FlyPose", _Pose_fly);
         }
     }
     //--------------------------------------------------------------------- MOVE
@@ -301,12 +302,14 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = 2;
-            _Animator.SetFloat("Speed", 1);
+            //_Animator.SetFloat("Speed", 1);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "Speed", 1);
         }
         else 
         {
             speed = 1;
-            _Animator.SetFloat("Speed", 0);
+            //_Animator.SetFloat("Speed", 0);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "Speed", 0);
         }
 
         float h = Input.GetAxisRaw("Horizontal");
@@ -472,7 +475,7 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
                 yield break;
             }
             t += 1 * Time.deltaTime;
-            _Animator.SetFloat("JumpPose", t);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "JumpPose", t);
             yield return null;
         }
     }

@@ -288,10 +288,10 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
         while(true) {
             yield return new WaitForSeconds(2.0f);
             //_Animator.SetFloat("FlyPose", _Pose_gliding);
-            photonView.RPC("RPCSetFloat", RpcTarget.All, "FlyPose", _Pose_gliding);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "FlyPose", (float)_Pose_gliding);
             yield return new WaitForSeconds(2.0f);
             //_Animator.SetFloat("FlyPose", _Pose_fly);
-            photonView.RPC("RPCSetFloat", RpcTarget.All, "FlyPose", _Pose_fly);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "FlyPose", (float)_Pose_fly);
         }
     }
     //--------------------------------------------------------------------- MOVE

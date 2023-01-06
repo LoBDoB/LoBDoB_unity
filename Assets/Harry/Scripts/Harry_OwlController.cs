@@ -597,6 +597,7 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void RPCCrossFade(string stateName, float normalizedTransitionDuration)
     {
-        _Animator.CrossFade(stateName, normalizedTransitionDuration);
+        if (_Animator != null)
+            _Animator.CrossFade(stateName, normalizedTransitionDuration);
     }
 }

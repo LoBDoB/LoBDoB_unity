@@ -40,6 +40,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //LobbyScene으로 이동
-        PhotonNetwork.LoadLevel("Test_Lobby");
+        PhotonNetwork.LoadLevel("Harry_Test_Lobby");
     }
 }

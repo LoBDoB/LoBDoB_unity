@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 1042214230984136254}
   - component: {fileID: 1042214230984136255}
   - component: {fileID: 4264611187153024848}
+  - component: {fileID: -4794247937286539509}
   m_Layer: 0
   m_Name: CamFollow
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -69,6 +70,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!135 &-4794247937286539509
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042214230984136253}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1042214231740769821
 GameObject:
   m_ObjectHideFlags: 0

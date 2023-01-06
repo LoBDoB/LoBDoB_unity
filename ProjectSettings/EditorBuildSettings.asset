@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Test_Lobby.unity
     guid: 6e6890538e823f34294a5c033f8ed3a8
   - enabled: 1
-    path: Assets/Scenes/Test.unity
+    path: Assets/Scenes/Main_Test.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Harry/Scenes/Harry_Test_Connect.unity

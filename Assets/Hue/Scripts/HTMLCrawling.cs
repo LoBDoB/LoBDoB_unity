@@ -2,12 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using HtmlAgilityPack;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 public class HTMLCrawling : MonoBehaviour
 {
     string url = "https://lily.sunmoon.ac.kr/Page2/Story/Notice.aspx";
 
+    public GameObject notice;
+    public GameObject noticePanel;
+
     string html;
+
+    int num = 0;
+
+    int checkTr;
+
+    public List<string> titleList;
+    public List<string> authorList;
+    public List<string> dateList;
+
     void Start()
     {
         
@@ -52,15 +66,56 @@ public class HTMLCrawling : MonoBehaviour
 
         //}
 
-        var node4 = htmlDoc.DocumentNode.SelectNodes("//body//div//td//a");
+        var htmlNodesTitle = htmlDoc.DocumentNode.SelectNodes("//body//div//td//a");
+        var htmlNodesAuthor = htmlDoc.DocumentNode.SelectNodes("//body//div//td");
 
-        foreach (var i in node4)
+        foreach (var i in htmlNodesTitle)
         {
-
-            Debug.Log("div innerHtml" + i.InnerHtml);
-            Debug.Log("div outherHtml" + i.Name);
-
+            num += 1;
+            titleList.Add(i.InnerHtml);
         }
+
+        foreach (var j in htmlNodesAuthor)
+        {
+            if (j.InnerHtml.Contains("</") == false && j.InnerHtml.Contains(".png") == false)
+            {
+                int result = 0;
+
+                if (Int32.TryParse(j.InnerHtml, out result) == false)
+                {
+                    checkTr += 1;
+
+                    if (checkTr == 1)
+                    {
+                        authorList.Add(j.InnerHtml);
+                    }
+
+                    if (checkTr == 2)
+                    {
+                        dateList.Add(j.InnerHtml);
+                        checkTr = 0;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < titleList.Count; i++)
+        {
+            GameObject summary = Instantiate(notice, noticePanel.transform);
+
+            Text num = summary.transform.GetChild(0).GetComponent<Text>();
+            Text title = summary.transform.GetChild(1).GetComponent<Text>();
+            Text date = summary.transform.GetChild(2).GetComponent<Text>();
+            Text author = summary.transform.GetChild(3).GetComponent<Text>();
+
+            num.text = $"{i+1}";
+            title.text = titleList[i];
+            date.text = dateList[i];
+            author.text = authorList[i];
+        }
+
+
+        
 
 
         //// span tag 중에 class 가 headline 인것

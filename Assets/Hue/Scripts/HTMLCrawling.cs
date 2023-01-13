@@ -12,6 +12,7 @@ public class HTMLCrawling : MonoBehaviour
 
     public GameObject notice;
     public GameObject noticePanel;
+    public GameObject safari;
 
     string html;
 
@@ -105,16 +106,21 @@ public class HTMLCrawling : MonoBehaviour
             Button clickEvent = title.GetComponent<Button>();
             clickEvent.onClick.AddListener(() => SurfingUrl(title.gameObject.name));
         }
-        
-
     }
 
-    public void SurfingUrl(string name)
+    public void SurfingUrl(string url)
     {
-        
-        Debug.Log(name);
-        Application.OpenURL(name);
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        safari.SetActive(true);
+        WebViewScript webViewScript = safari.GetComponent<WebViewScript>();
+        webViewScript.StartWebView(url);
+        //webViewScript.webViewObject.LoadURL(url);
 
+#elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_EDITOR_LINUX
+        Debug.Log(url);
+        Application.OpenURL(url);
+#endif
 
     }
+
 }

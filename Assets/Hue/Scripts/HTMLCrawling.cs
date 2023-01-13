@@ -25,8 +25,6 @@ public class HTMLCrawling : MonoBehaviour
     public List<string> urlList;
 
 
-    Button titleBTN;
-
     void Start()
     {
         
@@ -59,7 +57,7 @@ public class HTMLCrawling : MonoBehaviour
             summaryUrl = summaryUrl.Substring(0,i.OuterHtml.IndexOf(">")-10);
 
 
-            urlList.Add("https://lily.sunmoon.ac.kr/"+summaryUrl);
+            urlList.Add("https://lily.sunmoon.ac.kr"+summaryUrl);
 
             
             
@@ -102,29 +100,21 @@ public class HTMLCrawling : MonoBehaviour
             title.text = titleList[i];
             date.text = dateList[i];
             author.text = authorList[i];
+            title.gameObject.name = urlList[i];
 
-
-            title.gameObject.name = i.ToString();
-
-            titleBTN = title.gameObject.AddComponent<Button>();
-
-            titleBTN.onClick.AddListener(() => SurfingUrl(Int32.Parse(titleBTN.gameObject.name)));
+            Button clickEvent = title.GetComponent<Button>();
+            clickEvent.onClick.AddListener(() => SurfingUrl(title.gameObject.name));
         }
         
 
     }
 
-    void SurfingUrl(int i)
+    public void SurfingUrl(string name)
     {
         
-        //Debug.Log("");
-        Application.OpenURL(urlList[i]);
-    }
+        Debug.Log(name);
+        Application.OpenURL(name);
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

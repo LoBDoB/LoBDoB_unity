@@ -47,7 +47,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         print("OnJoinedRoom");
 
-        PhotonNetwork.LoadLevel("Test");
+        PhotonNetwork.LoadLevel("Harry_Test");
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)

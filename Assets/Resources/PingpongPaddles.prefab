@@ -1,0 +1,206 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4798331190348319971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4798331190348319970}
+  - component: {fileID: 4798331190348319981}
+  - component: {fileID: -4250154959431169616}
+  m_Layer: 28
+  m_Name: PingpongPaddles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4798331190348319970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4798331190348319971}
+  m_LocalRotation: {x: -0.045542005, y: -0, z: -0, w: 0.99896246}
+  m_LocalPosition: {x: -0.0825, y: -0.2035, z: 0.484}
+  m_LocalScale: {x: 7.15, y: 7.1499996, z: 7.1499996}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 8777962586449528149}
+  - {fileID: 3561258433742426126}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -5.221, y: 0, z: 0}
+--- !u!65 &4798331190348319981
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4798331190348319971}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.284157, y: 0.29649064, z: 0.09058071}
+  m_Center: {x: 0.019248825, y: 0.051030207, z: -0.0011434506}
+--- !u!114 &-4250154959431169616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4798331190348319971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1001 &4798331190629552270
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4798331190348319970}
+    m_Modifications:
+    - target: {fileID: 4271258240833590747, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271258240833590747, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.037
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271258240833590747, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.023
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271258240833590747, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271258240833590747, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9883645
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271258240833590747, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.06275354
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271258240833590747, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.0028545556
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271258240833590747, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.13852657
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271258240833590747, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 7.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271258240833590747, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -1.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271258240833590747, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -16.039
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271258240834011643, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_Name
+      value: PingpongPaddle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271258240834011643, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+      propertyPath: m_Layer
+      value: 28
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 65752080366250848, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+--- !u!4 &8777962586449528149 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4271258240833590747, guid: 3250cd1f955000f4db14c38215e6129a, type: 3}
+  m_PrefabInstance: {fileID: 4798331190629552270}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4798331191998509890
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4798331190348319970}
+    m_Modifications:
+    - target: {fileID: 8357336646939288396, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357336646939288396, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357336646939288396, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.047
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357336646939288396, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.028
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357336646939288396, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9917087
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357336646939288396, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.0012232573
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357336646939288396, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.052079782
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357336646939288396, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.11747402
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357336646939288396, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357336646939288396, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 5.913
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357336646939288396, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 13.468
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357336646939326316, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_Name
+      value: PingpongPaddle2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357336646939326316, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+      propertyPath: m_Layer
+      value: 28
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 65813697794410622, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+--- !u!4 &3561258433742426126 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8357336646939288396, guid: 482ef3b8ed62e0a43bc76b79f5875ef9, type: 3}
+  m_PrefabInstance: {fileID: 4798331191998509890}
+  m_PrefabAsset: {fileID: 0}

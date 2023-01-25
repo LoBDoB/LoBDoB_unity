@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-
 // Cartoon FX - (c) 2015 - Jean Moreno
 //
 // Script handling the Demo scene of the Cartoon FX Packs

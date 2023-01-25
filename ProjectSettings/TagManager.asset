@@ -11,6 +11,8 @@ TagManager:
   - 
   - Water
   - UI
+  - post
+  - Player
   - 
   - 
   - 
@@ -30,13 +32,11 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Effect
+  - SlotItem
+  - Slot
   - Ground
-  - 
+  - Tree
   m_SortingLayers:
   - name: Default
     uniqueID: 0

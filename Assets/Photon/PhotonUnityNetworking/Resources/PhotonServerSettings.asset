@@ -41,6 +41,11 @@ MonoBehaviour:
   - RespawnSpaceship
   - RPCCrossFade
   - RPCSetFloat
+  - RPCDeco_Use
+  - RPCEnableSlot
+  - RPCPlay
+  - RPCSetParent
+  - RPCSetSize
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

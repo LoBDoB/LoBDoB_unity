@@ -6,6 +6,8 @@ using Photon.Realtime;
 
 public class Harry_OwlController : MonoBehaviourPun, IPunObservable
 {
+    public GameObject avatarCam;
+
     private Animator _Animator;
     private CharacterController _Ctrl;
     private Vector3 _MoveDirection = Vector3.zero;
@@ -34,6 +36,11 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
         _Animator = this.GetComponent<Animator>();
         _Ctrl = this.GetComponent<CharacterController>();
         _View_Camera = GameObject.Find("CamFollow");
+
+        //if (!photonView.IsMine)
+        //{
+        //    avatarCam.SetActive(false);
+        //}
     }
 
     //private void LateUpdate()
@@ -43,7 +50,7 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
 
     void Update()
     {
-        if (photonView.IsMine)
+        if (photonView.IsMine && Harry_GameManager.Instance.Player_CanMove)
         {
             GRAVITY();
             STATUS();
@@ -220,7 +227,6 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
 		{
             if (_Ctrl.isGrounded)
 		    {
-                //photonView.RPC("RPCCrossFade", RpcTarget.All, "take_off", 0.1f);
                 photonView.RPC("RPCCrossFade", RpcTarget.All, "take_off", 0.1f);
             }
             else if (!_Ctrl.isGrounded)
@@ -269,9 +275,9 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
         // rise & descent position
         if (Input.GetKey(KeyCode.Space) && !_Status["Stop"])
 		{
-			if(this.transform.position.y < 2.5f)
+			if(this.transform.position.y < 22.5f)
 			{
-				_MoveDirection.y = 0.5f;
+				_MoveDirection.y = 1.5f;
 			}
 			else{
 				_MoveDirection.y = 0;
@@ -288,25 +294,29 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
     {
         while(true) {
             yield return new WaitForSeconds(2.0f);
-            _Animator.SetFloat("FlyPose", _Pose_gliding);
+            //_Animator.SetFloat("FlyPose", _Pose_gliding);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "FlyPose", (float)_Pose_gliding);
             yield return new WaitForSeconds(2.0f);
-            _Animator.SetFloat("FlyPose", _Pose_fly);
+            //_Animator.SetFloat("FlyPose", _Pose_fly);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "FlyPose", (float)_Pose_fly);
         }
     }
     //--------------------------------------------------------------------- MOVE
     private void MOVE()
     {
-        float speed = 1;
+        float speed = 2;
         //------------------------------------------------------------ Speed
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            speed = 2;
-            _Animator.SetFloat("Speed", 1);
+            speed = 4;
+            //_Animator.SetFloat("Speed", 1);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "Speed", 1f);
         }
         else 
         {
-            speed = 1;
-            _Animator.SetFloat("Speed", 0);
+            speed = 2;
+            //_Animator.SetFloat("Speed", 0);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "Speed", 0f);
         }
 
         float h = Input.GetAxisRaw("Horizontal");
@@ -472,7 +482,7 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
                 yield break;
             }
             t += 1 * Time.deltaTime;
-            _Animator.SetFloat("JumpPose", t);
+            photonView.RPC("RPCSetFloat", RpcTarget.All, "JumpPose", t);
             yield return null;
         }
     }
@@ -594,6 +604,7 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void RPCCrossFade(string stateName, float normalizedTransitionDuration)
     {
-        _Animator.CrossFade(stateName, normalizedTransitionDuration);
+        if (_Animator != null)
+            _Animator.CrossFade(stateName, normalizedTransitionDuration);
     }
 }

@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Harry_PostBox : MonoBehaviour
+public class Harry_Diorama : MonoBehaviour
 {
-    public GameObject notice;
     public GameObject pressF;
 
-    Harry_CamController cc;
     bool canInter;
     bool isInter;
 
     // Start is called before the first frame update
     void Start()
     {
-        notice.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -53,8 +51,6 @@ public class Harry_PostBox : MonoBehaviour
         canInter = false;
         // 플레이어가 못움직이게
         Harry_GameManager.Instance.Player_CanMove = false;
-
-        notice.SetActive(true);
     }
 
     // 구슬 보기 종료
@@ -67,8 +63,6 @@ public class Harry_PostBox : MonoBehaviour
         canInter = true;
         //플레이어가 움직일 수 있게
         Harry_GameManager.Instance.Player_CanMove = true;
-
-        notice.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -77,7 +71,6 @@ public class Harry_PostBox : MonoBehaviour
         Harry_CamController cc;
         if (other.gameObject.TryGetComponent<Harry_CamController>(out cc))
         {
-            this.cc = cc;
             canInter = true;
         }
     }

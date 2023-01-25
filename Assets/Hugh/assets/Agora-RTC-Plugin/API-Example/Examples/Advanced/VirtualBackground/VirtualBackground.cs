@@ -34,7 +34,9 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
         public uint uid1 = 10;
 
         private static GameObject playerVideo;
-        public int userCount;
+        public static int userCount;
+
+        private static Vector3[] userPositions = { new Vector3(121, 4, 158), new Vector3(128, 4, 157), new Vector3(128, 4, 155),new Vector3(128,4, 160),new Vector3(125, 4, 161),new Vector3(125, 4, 155)};
 
 
         // Use this for initialization
@@ -149,6 +151,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
 
         internal static void MakeVideoView(uint uid, string channelId = "")
         {
+            userCount += 1;
             GameObject player = Instantiate(playerVideo);
             VideoSurface videoSurface = player.transform.GetChild(0).GetChild(0).GetComponent<VideoSurface>();
 
@@ -157,6 +160,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
             //mine
             if (uid == 0)
             {
+                player.transform.position = userPositions[0];
                 player.name = uid.ToString();
                 videoSurface.SetForUser(uid, channelId);
             }
@@ -164,6 +168,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
             //differet user
             else
             {
+                player.transform.position = userPositions[userCount];
                 player.name = uid.ToString();
                 videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
             }
@@ -201,7 +206,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
         //mine player user join
         public override void OnJoinChannelSuccess(RtcConnection connection, int elapsed)
         {
-            _sample.userCount += 1;
+            //_sample.userCount += 1;
             int build = 0;
             Debug.Log("Agora: OnJoinChannelSuccess ");
             _sample.Log.UpdateLog(string.Format("sdk version: ${0}",
@@ -232,7 +237,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
         //different user join 
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
-            _sample.userCount += 1;
+            //_sample.userCount += 1;
             _sample.Log.UpdateLog(string.Format("OnUserJoined uid: ${0} elapsed: ${1}", uid, elapsed));
             VirtualBackground.MakeVideoView(uid, _sample.GetChannelName());
         }

@@ -144,6 +144,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
         internal static void GetObject()
         {
             playerVideo = GameObject.Find("MinePosition");
+            playerVideo.SetActive(false);
         }
 
         #region -- Video Render UI Logic ---

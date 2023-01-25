@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class WebViewScript : MonoBehaviour
 {
-
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
     //public static WebViewScript Instance;
     public WebViewObject webViewObject;
     public GameObject safariPanel;
@@ -254,5 +254,6 @@ public class WebViewScript : MonoBehaviour
         
 
     }
+#endif
 #endif
 }

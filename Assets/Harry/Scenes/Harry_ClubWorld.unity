@@ -2976,6 +2976,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clubFac: {fileID: 7699440161792532879, guid: 94082bac33d99104194a4d638ce54894, type: 3}
+  actTime: 1.5
+  delayTime: 1.5
 --- !u!4 &2013553867
 Transform:
   m_ObjectHideFlags: 0
@@ -3411,6 +3413,18 @@ PrefabInstance:
     - target: {fileID: 438971874845731284, guid: 1c3621b7f5977e7418c88e5d4293900f, type: 3}
       propertyPath: m_RootOrder
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 438971874845731284, guid: 1c3621b7f5977e7418c88e5d4293900f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 438971874845731284, guid: 1c3621b7f5977e7418c88e5d4293900f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 438971874845731284, guid: 1c3621b7f5977e7418c88e5d4293900f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 438971874845731284, guid: 1c3621b7f5977e7418c88e5d4293900f, type: 3}
       propertyPath: m_LocalPosition.x

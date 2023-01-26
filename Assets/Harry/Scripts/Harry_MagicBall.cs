@@ -136,7 +136,7 @@ public class Harry_MagicBall : MonoBehaviour
     void SetClubs(Club clubInfo)
     {
         GameObject club = Instantiate(clubFac, transform);
-        club.transform.localPosition = new Vector3(clubInfo.x, clubInfo.y, clubInfo.z) / (2 / transform.localScale.x);
+        club.transform.localPosition = new Vector3(clubInfo.x, clubInfo.y, clubInfo.z) / 2f;
         club.GetComponent<Harry_MinClubInfo>().clubInfo = clubInfo;
         // 초기에 모든 클럽을 검색 리스트에 추가함
         searchList.Add(club);

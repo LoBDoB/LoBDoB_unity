@@ -5,6 +5,8 @@ using Agora.Rtc;
 using Agora.Util;
 using Logger = Agora.Util.Logger;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
 {
@@ -36,12 +38,20 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
         private static GameObject playerVideo;
         public static int userCount;
 
-        private static Vector3[] userPositions = { new Vector3(121, 4, 158), new Vector3(128, 4, 157), new Vector3(128, 4, 155),new Vector3(128,4, 160),new Vector3(125, 4, 161),new Vector3(125, 4, 155)};
 
 
-        // Use this for initialization
+
+        public List<GameObject> othersTransform = new List<GameObject>();
+
+        private static List<GameObject> otherTransformUse;
+
+        //private static List<Vector3> userRotation;
+
+        //private static List<Vector3> userScale;
+
         private void Start()
         {
+            BringTransform();
             GetObject();
             LoadAssetData();
             if (CheckAppId())
@@ -51,6 +61,14 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
                 JoinChannel();
                 OnStartButtonPress();
             }
+            
+        }
+
+
+        private void BringTransform()
+        {
+            otherTransformUse = othersTransform;
+            //Debug.Log(userPositions[0]);
         }
 
         // Update is called once per frame
@@ -144,7 +162,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
         internal static void GetObject()
         {
             playerVideo = GameObject.Find("MinePosition");
-            playerVideo.SetActive(false);
+            
         }
 
         #region -- Video Render UI Logic ---
@@ -153,6 +171,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
         internal static void MakeVideoView(uint uid, string channelId = "")
         {
             userCount += 1;
+
             GameObject player = Instantiate(playerVideo);
             VideoSurface videoSurface = player.transform.GetChild(0).GetChild(0).GetComponent<VideoSurface>();
 
@@ -161,20 +180,36 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
             //mine
             if (uid == 0)
             {
-                player.transform.position = userPositions[0];
+                Transform screen_user = GameObject.Find("laptop_User").transform.GetChild(0);
+                Transform transform_screen = GameObject.Find("laptop_User").transform.GetChild(0).GetChild(0);
+
+                player.transform.SetParent(screen_user.transform);
+                player.transform.position = transform_screen.transform.position;
+                player.transform.rotation = transform_screen.transform.rotation;
+                player.transform.localScale = transform_screen.transform.localScale;
+
+                //player.transform.position = userPositions[0];
                 player.name = uid.ToString();
                 videoSurface.SetForUser(uid, channelId);
+                videoSurface.SetEnable(true);
             }
 
             //differet user
             else
             {
-                player.transform.position = userPositions[userCount];
+                //player.transform.position = userPositions[userCount];
+
+                player.transform.position = otherTransformUse[userCount-1].transform.position;
+                player.transform.rotation = otherTransformUse[userCount - 1].transform.rotation;
+                player.transform.localScale = otherTransformUse[userCount - 1].transform.localScale;
+
+
                 player.name = uid.ToString();
                 videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                videoSurface.SetEnable(true);
             }
 
-            videoSurface.SetEnable(true);
+            
         }
 
         internal static void DestroyVideoView(uint uid)

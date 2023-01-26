@@ -4,6 +4,9 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
 using System;
+using Photon.Pun;
+using UnityEngine.UIElements;
+using System.Runtime.CompilerServices;
 
 [Serializable]
 public class Club
@@ -28,6 +31,9 @@ public class Harry_ClubWorldManager : MonoBehaviour
 
     Dictionary<string, Club> innerClubs = new Dictionary<string, Club>();
     Dictionary<string, Club> outerClubs = new Dictionary<string, Club>();
+
+    GameObject player;
+    Harry_CamController cc;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,37 +46,60 @@ public class Harry_ClubWorldManager : MonoBehaviour
         // Dictionary의 정보를 기반으로 클럽 생성
         foreach (var item in innerClubs)
         {
-            SetClubs(item.Value, true);
+            StartCoroutine(SetClubCo(item.Value, true));
         }
         foreach (var item in outerClubs)
         {
-            SetClubs(item.Value, false);
+            StartCoroutine(SetClubCo(item.Value, false));
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (GameObject.Find(PhotonNetwork.NickName) != null && player == null)
+        {
+            player = GameObject.Find(PhotonNetwork.NickName);
+            cc = Camera.main.transform.parent.GetComponent<Harry_CamController>();
+            StartCoroutine("MoveCam");
+        }
     }
 
-    void SetClubs(Club clubInfo, bool isInner)
+    IEnumerator MoveCam()
+    {
+        yield return new WaitForSeconds(2f);
+        cc.StartInter(new Vector3(0, 90, -300), new Vector3(15, 0, 0));
+        yield return new WaitForSeconds(3.5f);
+        cc.EndInter();
+    }
+
+    IEnumerator SetClubCo(Club clubInfo, bool isInner)
     {
         GameObject club = Instantiate(clubFac);
-        club.transform.position = Vector3.zero;
+
+        club.transform.position = new Vector3(clubInfo.x * 5, clubInfo.y * 5, clubInfo.z * 5);
         club.GetComponent<Harry_ClubInfo>().clubInfo = clubInfo;
+
+        while (player == null)
+        {
+            yield return null;
+        }
 
         // inner 서클이면 크기가 다르게
         if (isInner)
         {
-            iTween.MoveTo(club, iTween.Hash("x", clubInfo.x * 50, "y", clubInfo.y * 50, "z", clubInfo.z * 50, "time", 1.5f, "delay", 1f, "easetype", iTween.EaseType.easeOutCirc));
-            club.transform.localScale = 10 * (float)clubInfo.num_members / 30 * Vector3.one;
+            Vector3 scale = 10 * (float)clubInfo.num_members / 30 * Vector3.one;
+            club.transform.localScale = Vector3.zero;
+            iTween.MoveTo(club, iTween.Hash("x", clubInfo.x * 50, "y", clubInfo.y * 50, "z", clubInfo.z * 50, "time", 1.5f, "delay", 3.5f, "easetype", iTween.EaseType.easeOutCirc));
+            iTween.ScaleTo(club, iTween.Hash("x", scale.x, "y", scale.y, "z", scale.z, "time", 1.5f, "delay", 3.5f, "easetype", iTween.EaseType.easeOutCirc));
         }
         // outer 서클이면 크기를 같게
         else
         {
-            iTween.MoveTo(club, iTween.Hash("x", clubInfo.x * 50, "y", clubInfo.y * 50, "z", clubInfo.z * 50, "time", 1.5f, "delay", 1f, "easetype", iTween.EaseType.easeOutCirc));
-            club.transform.localScale = 10 * Vector3.one;
+            Vector3 scale = 10 * Vector3.one;
+            club.transform.localScale = Vector3.zero;
+            iTween.MoveTo(club, iTween.Hash("x", clubInfo.x * 50, "y", clubInfo.y * 50, "z", clubInfo.z * 50, "time", 1.5f, "delay", 3.5f, "easetype", iTween.EaseType.easeOutCirc));
+            iTween.ScaleTo(club, iTween.Hash("x", scale.x, "y", scale.y, "z", scale.z, "time", 1.5f, "delay", 3.5f, "easetype", iTween.EaseType.easeOutCirc));
         }
     }
 }

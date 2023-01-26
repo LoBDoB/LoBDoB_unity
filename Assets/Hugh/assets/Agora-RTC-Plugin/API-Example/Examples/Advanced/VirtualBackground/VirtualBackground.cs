@@ -170,7 +170,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
 
         internal static void MakeVideoView(uint uid, string channelId = "")
         {
-            userCount += 1;
+            
 
             GameObject player = Instantiate(playerVideo);
             VideoSurface videoSurface = player.transform.GetChild(0).GetChild(0).GetComponent<VideoSurface>();
@@ -197,11 +197,12 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
             //differet user
             else
             {
+                userCount += 1;
                 //player.transform.position = userPositions[userCount];
 
-                player.transform.position = otherTransformUse[userCount].transform.position;
-                player.transform.rotation = otherTransformUse[userCount].transform.rotation;
-                player.transform.localScale = otherTransformUse[userCount].transform.localScale;
+                player.transform.position = otherTransformUse[userCount - 1].transform.position;
+                player.transform.rotation = otherTransformUse[userCount - 1].transform.rotation;
+                player.transform.localScale = otherTransformUse[userCount - 1].transform.localScale;
 
 
                 player.name = uid.ToString();

@@ -51,6 +51,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
 
         private void Start()
         {
+            uid1 = (uint)Random.Range(0, 3000);
             BringTransform();
             GetObject();
             LoadAssetData();

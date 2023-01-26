@@ -199,9 +199,9 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.VirtualBackground
             {
                 //player.transform.position = userPositions[userCount];
 
-                player.transform.position = otherTransformUse[userCount-1].transform.position;
-                player.transform.rotation = otherTransformUse[userCount - 1].transform.rotation;
-                player.transform.localScale = otherTransformUse[userCount - 1].transform.localScale;
+                player.transform.position = otherTransformUse[userCount].transform.position;
+                player.transform.rotation = otherTransformUse[userCount].transform.rotation;
+                player.transform.localScale = otherTransformUse[userCount].transform.localScale;
 
 
                 player.name = uid.ToString();

@@ -35,13 +35,5 @@ public class Harry_GameManager : MonoBehaviour
             return;
         else
             nickName.text = PhotonNetwork.NickName;
-
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            foreach (string key in Deco_Use.Keys)
-            {
-                print(key + " " + Deco_Use[key].ToString());
-            }
-        }
     }
 }

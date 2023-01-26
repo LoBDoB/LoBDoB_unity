@@ -87,7 +87,7 @@ public class Harry_MagicBall : MonoBehaviour
         ballUI.SetActive(false);
 
         // Dictionary 형태의 Json 파일을 읽어와 역직렬화
-        circle = File.ReadAllText(Application.dataPath + "/Harry/magic_ball.json");
+        circle = File.ReadAllText(Application.dataPath + "/JsonFile/magic_ball.json");
         clubs = JsonConvert.DeserializeObject<Dictionary<string, Club>>(circle);
 
         // Dictionary의 정보를 기반으로 클럽 생성

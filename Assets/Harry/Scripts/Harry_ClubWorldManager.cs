@@ -26,6 +26,9 @@ public class Harry_ClubWorldManager : MonoBehaviour
 {
     public GameObject clubFac;
 
+    public float actTime = 1.5f;
+    public float delayTime = 1.5f;
+
     string innerCircle;
     string outerCircle;
 
@@ -38,8 +41,8 @@ public class Harry_ClubWorldManager : MonoBehaviour
     void Start()
     {
         // Dictionary 형태의 Json 파일을 읽어와 역직렬화
-        innerCircle = File.ReadAllText(Application.dataPath + "/Harry/inner_circle.json");
-        outerCircle = File.ReadAllText(Application.dataPath + "/Harry/outer_circle.json");
+        innerCircle = File.ReadAllText(Application.dataPath + "/JsonFile/inner_circle.json");
+        outerCircle = File.ReadAllText(Application.dataPath + "/JsonFile/outer_circle.json");
         innerClubs = JsonConvert.DeserializeObject<Dictionary<string, Club>>(innerCircle);
         outerClubs = JsonConvert.DeserializeObject<Dictionary<string, Club>>(outerCircle);
 
@@ -67,9 +70,10 @@ public class Harry_ClubWorldManager : MonoBehaviour
 
     IEnumerator MoveCam()
     {
-        yield return new WaitForSeconds(2f);
+        Harry_GameManager.Instance.Player_CanMove = false;
         cc.StartInter(new Vector3(0, 90, -300), new Vector3(15, 0, 0));
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(actTime + delayTime + 0.5f);
+        Harry_GameManager.Instance.Player_CanMove = true;
         cc.EndInter();
     }
 
@@ -90,16 +94,16 @@ public class Harry_ClubWorldManager : MonoBehaviour
         {
             Vector3 scale = 10 * (float)clubInfo.num_members / 30 * Vector3.one;
             club.transform.localScale = Vector3.zero;
-            iTween.MoveTo(club, iTween.Hash("x", clubInfo.x * 50, "y", clubInfo.y * 50, "z", clubInfo.z * 50, "time", 1.5f, "delay", 3.5f, "easetype", iTween.EaseType.easeOutCirc));
-            iTween.ScaleTo(club, iTween.Hash("x", scale.x, "y", scale.y, "z", scale.z, "time", 1.5f, "delay", 3.5f, "easetype", iTween.EaseType.easeOutCirc));
+            iTween.MoveTo(club, iTween.Hash("x", clubInfo.x * 50, "y", clubInfo.y * 50, "z", clubInfo.z * 50, "time", actTime, "delay", delayTime, "easetype", iTween.EaseType.easeOutCirc));
+            iTween.ScaleTo(club, iTween.Hash("x", scale.x, "y", scale.y, "z", scale.z, "time", 1.5f, "delay", 1.5f, "easetype", iTween.EaseType.easeOutCirc));
         }
         // outer 서클이면 크기를 같게
         else
         {
             Vector3 scale = 10 * Vector3.one;
             club.transform.localScale = Vector3.zero;
-            iTween.MoveTo(club, iTween.Hash("x", clubInfo.x * 50, "y", clubInfo.y * 50, "z", clubInfo.z * 50, "time", 1.5f, "delay", 3.5f, "easetype", iTween.EaseType.easeOutCirc));
-            iTween.ScaleTo(club, iTween.Hash("x", scale.x, "y", scale.y, "z", scale.z, "time", 1.5f, "delay", 3.5f, "easetype", iTween.EaseType.easeOutCirc));
+            iTween.MoveTo(club, iTween.Hash("x", clubInfo.x * 50, "y", clubInfo.y * 50, "z", clubInfo.z * 50, "time", actTime, "delay", delayTime, "easetype", iTween.EaseType.easeOutCirc));
+            iTween.ScaleTo(club, iTween.Hash("x", scale.x, "y", scale.y, "z", scale.z, "time", 1.5f, "delay", 1.5f, "easetype", iTween.EaseType.easeOutCirc));
         }
     }
 }

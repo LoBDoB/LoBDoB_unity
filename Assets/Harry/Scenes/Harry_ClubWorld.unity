@@ -2194,6 +2194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a5959e5ef339e42a47c345e1feebcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSpawnPos: {x: 0, y: 0, z: -2}
+  camSpawnPos: {x: 0, y: 90, z: -300}
+  camSpawnRot: {x: 0.1305262, y: 0, z: 0, w: 0.9914449}
 --- !u!1 &1314873544
 GameObject:
   m_ObjectHideFlags: 0

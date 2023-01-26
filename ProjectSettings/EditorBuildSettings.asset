@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Harry/Scenes/Harry_MainLobbyDesign.unity
-    guid: 777144233f8595241af6402c5a527b70
-  - enabled: 1
     path: Assets/Harry/Scenes/Harry_ClubWorld.unity
     guid: 2667a1624cc1f3e46a913ee6dbfe5eb8
+  - enabled: 1
+    path: Assets/Harry/Scenes/Harry_MainLobbyDesign.unity
+    guid: 777144233f8595241af6402c5a527b70
   m_configObjects: {}

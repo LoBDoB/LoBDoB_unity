@@ -26,7 +26,7 @@ public class HTMLCrawling : MonoBehaviour
     public List<string> urlList;
 
 
-    void Start()
+    void OnEnable()
     {
         
 

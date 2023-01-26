@@ -136,7 +136,7 @@ public class Harry_MagicBall : MonoBehaviour
     void SetClubs(Club clubInfo)
     {
         GameObject club = Instantiate(clubFac, transform);
-        club.transform.localPosition = new Vector3(clubInfo.x, clubInfo.y, clubInfo.z) / 2.5f;
+        club.transform.localPosition = new Vector3(clubInfo.x, clubInfo.y, clubInfo.z) / (2 / transform.localScale.x);
         club.GetComponent<Harry_MinClubInfo>().clubInfo = clubInfo;
         // 초기에 모든 클럽을 검색 리스트에 추가함
         searchList.Add(club);
@@ -152,7 +152,11 @@ public class Harry_MagicBall : MonoBehaviour
         Cursor.visible = true;
         canInter = false;
         // 카메라를 구슬 정면으로 이동
-        cc.StartInter(new Vector3(0, 0.93f, 1.531f), new Vector3(0, 0, 0));
+        //cc.StartInter(new Vector3(0, transform.position.y, transform.position.z - transform.localScale.x * 1.15f), new Vector3(0, 0, 0));
+        Vector3 dir = transform.position - cc.transform.position;
+        dir.y = 0;
+        dir.Normalize();
+        cc.StartInter(transform.position - transform.localScale.x * 1.15f * dir, Quaternion.LookRotation(dir).eulerAngles);
         // 플레이어가 못움직이게
         Harry_GameManager.Instance.Player_CanMove = false;
 

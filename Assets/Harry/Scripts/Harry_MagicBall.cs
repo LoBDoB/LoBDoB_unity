@@ -152,7 +152,6 @@ public class Harry_MagicBall : MonoBehaviour
         Cursor.visible = true;
         canInter = false;
         // 카메라를 구슬 정면으로 이동
-        //cc.StartInter(new Vector3(0, transform.position.y, transform.position.z - transform.localScale.x * 1.15f), new Vector3(0, 0, 0));
         Vector3 dir = transform.position - cc.transform.position;
         dir.y = 0;
         dir.Normalize();

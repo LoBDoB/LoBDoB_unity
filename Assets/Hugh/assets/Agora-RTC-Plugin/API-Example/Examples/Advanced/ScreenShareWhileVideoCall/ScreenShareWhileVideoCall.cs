@@ -157,7 +157,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
             s.width = 360;
             s.height = 240;
             var info = RtcEngine.GetScreenCaptureSources(t, s, true);
-
+            Debug.LogError(info);
             _winIdSelect.AddOptions(info.Select(w =>
                     new Dropdown.OptionData(
                         string.Format("{0}: {1}-{2} | {3}", w.type, w.sourceName, w.sourceTitle, w.sourceId)))
@@ -407,6 +407,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
             _desktopScreenShare.Log.UpdateLog(string.Format("OnUserJoined uid: ${0} elapsed: ${1}", uid, elapsed));
             if (uid != _desktopScreenShare.Uid1 && uid != _desktopScreenShare.Uid2)
             {
+                Debug.LogError("111");
                 ScreenShareWhileVideoCall.MakeVideoView(uid, _desktopScreenShare.GetChannelName(), VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
             }
         }

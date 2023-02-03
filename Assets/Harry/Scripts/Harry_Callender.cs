@@ -9,6 +9,7 @@ public class Harry_Callender : MonoBehaviour
 {
     public List<GameObject> dates = new List<GameObject>();
     public GameObject label;
+    public Dropdown pallete;
 
     int startIdx = -1;
     public int StartIdx
@@ -43,8 +44,23 @@ public class Harry_Callender : MonoBehaviour
 
                 for (int i = startIdx; i <= endIdx; i++)
                 {
-                    //Instantiate(label, dates[i].transform.Find("Viewport").transform.Find("Content"));
+                    switch (pallete.value)
+                    {
+                        case 0:
+                            label.GetComponent<Image>().color = Color.red;
+                            break;
+                        case 1:
+                            label.GetComponent<Image>().color = Color.blue;
+                            break;
+                        case 2:
+                            label.GetComponent<Image>().color = Color.green;
+                            break;
+                    }
                     GameObject go = Instantiate(label, dates[i].transform);
+
+                    if (i != startIdx)
+                        go.transform.GetChild(0).gameObject.SetActive(false);
+
                     dates[i].GetComponent<Harry_Date>().labelCnt = (maxCnt + 1);
                     //go.GetComponent<RectTransform>().position = new Vector3(0, 30 - maxCnt * 25);
                     go.transform.localPosition = new Vector3(0, 30 - maxCnt * 25);

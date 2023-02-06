@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Harry/Scenes/Harry_ClubWorld.unity
     guid: 2667a1624cc1f3e46a913ee6dbfe5eb8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Harry/Scenes/Harry_MainLobbyDesign.unity
     guid: 777144233f8595241af6402c5a527b70
+  - enabled: 1
+    path: Assets/Harry/Scenes/Harry_Callender.unity
+    guid: f9ab0d85f6cc2de4e8f1926fb98bdfdd
   m_configObjects: {}

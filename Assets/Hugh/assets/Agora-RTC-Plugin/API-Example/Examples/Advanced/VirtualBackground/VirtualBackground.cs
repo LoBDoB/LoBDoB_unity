@@ -182,19 +182,19 @@ public class VirtualBackground : MonoBehaviour
         PermissionHelper.RequestMicrophontPermission();
         PermissionHelper.RequestCameraPermission();
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            //if ()
-            //{
-            //}
-            obj = GameObject.Find("ScreenShareView");
-            //Debug.LogError(obj);
-            RawImage objImg = obj.GetComponent<RawImage>();
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    //if ()
+        //    //{
+        //    //}
+        //    obj = GameObject.Find("ScreenShareView");
+        //    //Debug.LogError(obj);
+        //    RawImage objImg = obj.GetComponent<RawImage>();
             
-            Debug.LogError(objImg.material);
-            objImg.material.renderQueue = 3001;
+        //    Debug.LogError(objImg.material);
+        //    objImg.material.renderQueue = 3001;
 
-        }
+        //}
     }
 
 
@@ -209,15 +209,15 @@ public class VirtualBackground : MonoBehaviour
         Debug.LogError(objImg.material);
 
 
-        if (objImg.material.renderQueue == 3001)
-        {
-            objImg.material.renderQueue = 3000;
-        }
+        //if (objImg.material.renderQueue == 3001)
+        //{
+        //    objImg.material.renderQueue = 3000;
+        //}
 
-        else if (objImg.material.renderQueue == 3000)
-        {
-            objImg.material.renderQueue = 3001;
-        }
+        //else if (objImg.material.renderQueue == 3000)
+        //{
+        //    objImg.material.renderQueue = 3001;
+        //}
     }
 
     //Show data in AgoraBasicProfile

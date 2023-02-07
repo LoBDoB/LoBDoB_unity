@@ -429,8 +429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1dc6c88b513ee408c25fca14cc9157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  rotSpeed: 200
+  speed: 5
+  rotSpeed: 50
 --- !u!114 &1895706127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,3 +446,4 @@ MonoBehaviour:
   objFactory: {fileID: 533739683609429099, guid: 356bb1e8730ea9e46bfc2850d20ba79f, type: 3}
   can: {fileID: 2100000, guid: 497e958b1fb404c469b6e4d48c75f613, type: 2}
   cant: {fileID: 2100000, guid: 33bd19451ce530a4bb2ef31028c9825c, type: 2}
+  origMats: []

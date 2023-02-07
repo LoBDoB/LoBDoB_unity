@@ -40,8 +40,5 @@ public class Harry_DecoCam : MonoBehaviour
             transform.eulerAngles += rotDir * rotSpeed * 5 * Time.deltaTime;
         // 스크롤로 확대
         transform.position += scrollWheel * transform.forward * speed * 50 * Time.deltaTime;
-
-        transform.position = Vector3.Lerp(transform.position, transform.position, Time.deltaTime * 8.0f);
-        transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation, Time.deltaTime * 8.0f);
     }
 }

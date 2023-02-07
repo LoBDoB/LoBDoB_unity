@@ -86,7 +86,7 @@ public class Harry_Callender : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            GraphicRaycaster ray = GameObject.Find("Canvas").GetComponent<GraphicRaycaster>();
+            GraphicRaycaster ray = GameObject.Find("CalCanvas").GetComponent<GraphicRaycaster>();
             var ped = new PointerEventData(null);
             ped.position = Input.mousePosition;
             List<RaycastResult> results = new List<RaycastResult>();

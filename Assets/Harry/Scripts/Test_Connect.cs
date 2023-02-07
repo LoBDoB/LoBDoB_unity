@@ -74,16 +74,25 @@ public class Test_Connect : MonoBehaviourPunCallbacks
     public Vector3 playerSpawnPos = Vector3.zero;
     public Vector3 camSpawnPos = Vector3.zero;
     public Quaternion camSpawnRot = Quaternion.identity;
+    public bool owl = true;
     GameObject player;
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
         print("OnJoinedRoom");
 
-        player = PhotonNetwork.Instantiate("Player_owl", playerSpawnPos, Quaternion.identity);
-        player.name = PhotonNetwork.NickName;
+        if (owl)
+        {
+            player = PhotonNetwork.Instantiate("Player_owl", playerSpawnPos, Quaternion.identity);
+            PhotonNetwork.Instantiate("CamFollow_owl", camSpawnPos, camSpawnRot);
+        }
+        else
+        {
+            player = PhotonNetwork.Instantiate("Player_avatar", playerSpawnPos, Quaternion.identity);
+            PhotonNetwork.Instantiate("CamFollow_avatar", camSpawnPos, camSpawnRot);
+        }
 
-        PhotonNetwork.Instantiate("CamFollow", camSpawnPos, camSpawnRot);
+        player.name = PhotonNetwork.NickName;
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)

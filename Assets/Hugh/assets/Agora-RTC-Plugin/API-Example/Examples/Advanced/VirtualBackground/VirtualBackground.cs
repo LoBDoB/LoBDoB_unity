@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Agora.Rtc;
 using Agora.Util;
@@ -47,6 +48,9 @@ public class VirtualBackground : MonoBehaviour
 
     GameObject obj;
     //
+
+    public string savePath = "/Users/iseungmin/Downloads/";
+
 
     //start screen share relate function
 
@@ -166,7 +170,8 @@ public class VirtualBackground : MonoBehaviour
             JoinChannel();
             OnStartButtonPress();
         }
-            
+        chatInputField.onSubmit.AddListener(delegate { onSendButtonPress(); });
+        
     }
 
 
@@ -181,43 +186,18 @@ public class VirtualBackground : MonoBehaviour
     {
         PermissionHelper.RequestMicrophontPermission();
         PermissionHelper.RequestCameraPermission();
-
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    //if ()
-        //    //{
-        //    //}
-        //    obj = GameObject.Find("ScreenShareView");
-        //    //Debug.LogError(obj);
-        //    RawImage objImg = obj.GetComponent<RawImage>();
-            
-        //    Debug.LogError(objImg.material);
-        //    objImg.material.renderQueue = 3001;
-
-        //}
     }
 
 
     public static void ExtendScreenShareView(GameObject btn)
     {
         
-        //obj = GameObject.Find("ScreenShareView");
-        //Debug.LogError(obj);
-
         RawImage objImg = btn.GetComponent<RawImage>();
 
         Debug.LogError(objImg.material);
 
 
-        //if (objImg.material.renderQueue == 3001)
-        //{
-        //    objImg.material.renderQueue = 3000;
-        //}
-
-        //else if (objImg.material.renderQueue == 3000)
-        //{
-        //    objImg.material.renderQueue = 3001;
-        //}
+        
     }
 
     //Show data in AgoraBasicProfile
@@ -373,13 +353,9 @@ public class VirtualBackground : MonoBehaviour
             RectTransform screen_Size = screen.GetComponent<RectTransform>();
 
 
-
-            Button screenExtendBtn= screen.gameObject.AddComponent<Button>();
-            screenExtendBtn.onClick.AddListener(()=> ExtendScreenShareView(screen.gameObject));
-
             Debug.LogError(screen);
             VideoSurface videoSurface = player.transform.GetChild(0).GetChild(0).GetComponent<VideoSurface>();
-            //Debug.LogError(player);
+
             if (ReferenceEquals(videoSurface, null)) return;
             //mine
             if (uid == 0)
@@ -412,9 +388,6 @@ public class VirtualBackground : MonoBehaviour
                 videoSurface.SetEnable(true);
             }
         }
-
-
-
     }
 
     internal static void DestroyVideoView(string name)
@@ -423,6 +396,82 @@ public class VirtualBackground : MonoBehaviour
         if (!ReferenceEquals(go, null))
         {
             Destroy(go);
+        }
+    }
+
+
+    //chatting 기능 관련 로
+    public GameObject messageInfo;
+    public Transform messageContent;
+    public InputField chatInputField;
+    private int _streamId = -1;
+
+    public void InstantiateMessage(string id ,string chatText)
+    {
+        GameObject message = Instantiate(messageInfo,messageContent);
+        message.transform.GetChild(0).GetComponent<Text>().text = id;
+        message.transform.GetChild(1).GetComponent<Text>().text = chatText;
+    }
+
+    public void SendStreamMessage(int streamId, string message)
+    {
+        byte[] byteArray = System.Text.Encoding.Unicode.GetBytes(message);
+        var nRet = RtcEngine.SendStreamMessage(streamId, byteArray, Convert.ToUInt32(byteArray.Length));
+        this.Log.UpdateLog("SendStreamMessage :" + nRet);
+    }
+    private int CreateDataStreamId()
+    {
+        if (this._streamId == -1)
+        {
+            var config = new DataStreamConfig();
+            config.syncWithAudio = false;
+            config.ordered = true;
+            var nRet = RtcEngine.CreateDataStream(ref this._streamId, config);
+            this.Log.UpdateLog(string.Format("CreateDataStream: nRet{0}, streamId{1}", nRet, _streamId));
+        }
+        return _streamId;
+    }
+    private void onSendButtonPress()
+    {
+        
+        if (chatInputField.text == "")
+        {
+            Log.UpdateLog("Dont send empty message!");
+        }
+
+        int streamId = this.CreateDataStreamId();
+        if (streamId < 0)
+        {
+            Log.UpdateLog("CreateDataStream failed!");
+            return;
+        }
+        else
+        {
+            SendStreamMessage(streamId, chatInputField.text);
+            InstantiateMessage(uid1.ToString(),chatInputField.text);
+            chatInputField.text = "";
+        }
+    }
+
+    public bool BytesToFile(byte[] pSourceData, string pDestinationFileName)
+    {
+        FileStream fileStream = null;
+        try
+        {
+            fileStream = new FileStream(pDestinationFileName, FileMode.OpenOrCreate, FileAccess.Write);
+            fileStream.Write(pSourceData, 0, pSourceData.Length);  // Data는 byte[]        
+            fileStream.Close();
+            Debug.LogError("convert");
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+        finally
+        {
+            if (fileStream != null)
+                fileStream.Dispose();
         }
     }
 
@@ -481,6 +530,16 @@ internal class UserEventHandler : IRtcEngineEventHandler
         }
     }
 
+    public override void OnStreamMessage(RtcConnection connection, uint remoteUid, int streamId, byte[] data, uint length, ulong sentTs)
+    {
+        string streamMessage = System.Text.Encoding.Unicode.GetString(data);
+
+        _desktopScreenShare.InstantiateMessage(remoteUid.ToString(), streamMessage);
+        Debug.LogError(string.Format("OnStreamMessage remoteUid: {0}, stream message: {1}", remoteUid, streamMessage));
+        //Debug.LogError("arrive");
+        //_desktopScreenShare.BytesToFile(data,_desktopScreenShare.savePath+"plz.png");
+    }
+
     public override void OnClientRoleChanged(RtcConnection connection, CLIENT_ROLE_TYPE oldRole, CLIENT_ROLE_TYPE newRole)
     {
         _desktopScreenShare.Log.UpdateLog("OnClientRoleChanged");
@@ -491,7 +550,7 @@ internal class UserEventHandler : IRtcEngineEventHandler
         _desktopScreenShare.Log.UpdateLog(string.Format("OnUserJoined uid: ${0} elapsed: ${1}", uid, elapsed));
         if (uid != _desktopScreenShare.uid1 && uid != _desktopScreenShare.uid2)
         {
-            Debug.LogError("111");
+            //Debug.LogError("111");
             VirtualBackground.MakeVideoView(uid, _desktopScreenShare.GetChannelName(), VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
         }
     }

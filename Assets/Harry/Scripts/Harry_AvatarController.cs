@@ -128,7 +128,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
         {
             if (!_Animator.GetCurrentAnimatorStateInfo(0).IsName("jump"))
             {
-                photonView.RPC("RPCCrossFade", RpcTarget.All, "move", 0.1f);
+                photonView.RPC("RPCCrossFade", RpcTarget.All, "move", 0.01f);
             }
         }
 

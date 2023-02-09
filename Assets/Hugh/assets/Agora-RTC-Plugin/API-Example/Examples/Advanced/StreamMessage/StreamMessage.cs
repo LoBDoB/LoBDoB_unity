@@ -134,7 +134,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.StreamMessage
 
         private void SendStreamMessage(int streamId, string message)
         {
-            byte[] byteArray = System.Text.Encoding.Default.GetBytes(message);
+            byte[] byteArray = System.Text.Encoding.Unicode.GetBytes(message);
             var nRet = RtcEngine.SendStreamMessage(streamId, byteArray, Convert.ToUInt32(byteArray.Length));
             this.Log.UpdateLog("SendStreamMessage :" + nRet);
         }
@@ -208,7 +208,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.StreamMessage
 
         public override void OnStreamMessage(RtcConnection connection, uint remoteUid, int streamId, byte[] data, uint length, ulong sentTs)
         {
-            string streamMessage = System.Text.Encoding.Default.GetString(data);
+            string streamMessage = System.Text.Encoding.Unicode.GetString(data);
             _streamMessage.Log.UpdateLog(string.Format("OnStreamMessage remoteUid: {0}, stream message: {1}", remoteUid, streamMessage));
         }
 

@@ -8,7 +8,10 @@ using System;
 public class HTMLCrawling : MonoBehaviour
 {
     string url = "https://lily.sunmoon.ac.kr/Page2/Story/Notice.aspx";
-        
+
+
+    string panelURL = $"https://lily.sunmoon.ac.kr/Page2/Story/Notice.aspx?ca=00{1}";
+
 
     public GameObject notice;
     public GameObject noticePanel;
@@ -38,14 +41,10 @@ public class HTMLCrawling : MonoBehaviour
         htmlDoc.LoadHtml(html);
 
 
-      
-
         var htmlNodesTitle = htmlDoc.DocumentNode.SelectNodes("//body//div//td//a");
         //var htmlNodesLink = htmlDoc.DocumentNode.SelectNodes("//body//div//td////a[@href]");
         var htmlNodesAuthor = htmlDoc.DocumentNode.SelectNodes("//body//div//td");
 
-
-        
 
         foreach (var i in htmlNodesTitle)
         {

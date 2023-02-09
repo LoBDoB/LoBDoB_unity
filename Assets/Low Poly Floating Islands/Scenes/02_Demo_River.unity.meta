@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Chloe/Scenes/Test.unity.meta
+guid: ff555ca745a5bae4385cab991c9dae74
+========
 guid: d5a0cf9a22d5045049044ec9a54aed2b
+>>>>>>>> NewHarry:Assets/Low Poly Floating Islands/Scenes/02_Demo_River.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

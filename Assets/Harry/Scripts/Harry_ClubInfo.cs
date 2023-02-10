@@ -15,7 +15,7 @@ public class Harry_ClubInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canvas = transform.GetChild(0).GetComponent<Canvas>();
+        canvas = transform.Find("Canvas").GetComponent<Canvas>();
 
         clubName = canvas.transform.Find("Name").GetComponent<Text>();
         clubImage = canvas.transform.Find("Image").GetComponent<Image>();

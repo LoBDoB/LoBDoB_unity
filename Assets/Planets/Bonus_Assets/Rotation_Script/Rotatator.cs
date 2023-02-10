@@ -9,9 +9,9 @@ public class Rotatator : MonoBehaviour {
 	[SerializeField] bool randomize;
 	
 	public bool Randomize 
-	
 	{
-		get {
+		get 
+		{
 			return randomize;
 		}
 	}
@@ -20,21 +20,15 @@ public class Rotatator : MonoBehaviour {
 	[SerializeField] float minSpeed;
 
 	// Use this for initialization
-	void Start () 
-	
-		{
-
+	void Start ()
+	{ 
 		if(meshObject == null) 
-		
 		{
-			meshObject = transform.Find("planet"); 
-			if (meshObject == null)
-				meshObject = transform.Find("w2"); 
+			meshObject = transform;
 		}
 		
 		
 		if(randomize) 
-		
 		{
 			rotation = new Vector3(RandFloat(), RandFloat(), RandFloat());
 			rotationSpeed = Random.Range(minSpeed,maxSpeed);
@@ -42,7 +36,6 @@ public class Rotatator : MonoBehaviour {
 	}
 	
 	float RandFloat() 
-	
 	{
 		return Random.Range(0f,1.01f);
 	}

@@ -24,7 +24,16 @@ public class Club
 
 public class Harry_ClubWorldManager : MonoBehaviour
 {
-    public GameObject clubFac;
+    [SerializeField]
+    GameObject club1Fac;
+    [SerializeField]
+    GameObject club2Fac;
+    [SerializeField]
+    GameObject club3Fac;
+    [SerializeField]
+    GameObject club4Fac;
+    [SerializeField]
+    GameObject club5Fac;
 
     public float actTime = 1.5f;
     public float delayTime = 1.5f;
@@ -79,7 +88,26 @@ public class Harry_ClubWorldManager : MonoBehaviour
 
     IEnumerator SetClubCo(Club clubInfo, bool isInner)
     {
-        GameObject club = Instantiate(clubFac);
+        GameObject club = null;
+        int ran = UnityEngine.Random.Range(0, 5);
+        switch(ran)
+        {
+            case 0:
+                club = Instantiate(club1Fac);
+                break;
+            case 1:
+                club = Instantiate(club2Fac);
+                break;
+            case 2:
+                club = Instantiate(club3Fac);
+                break;
+            case 3:
+                club = Instantiate(club4Fac);
+                break;
+            case 4:
+                club = Instantiate(club5Fac);
+                break;
+        }
 
         club.transform.position = new Vector3(clubInfo.x * 5, clubInfo.y * 5, clubInfo.z * 5);
         club.GetComponent<Harry_ClubInfo>().clubInfo = clubInfo;

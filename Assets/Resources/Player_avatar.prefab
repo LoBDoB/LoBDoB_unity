@@ -2404,6 +2404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Speed: 2
+  canSit: 0
 --- !u!1 &9084995320559929695
 GameObject:
   m_ObjectHideFlags: 0

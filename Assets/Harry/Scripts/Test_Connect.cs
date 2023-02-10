@@ -72,6 +72,7 @@ public class Test_Connect : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRoom("Room");
     }
     public Vector3 playerSpawnPos = Vector3.zero;
+    public Quaternion playerSpawnRot = Quaternion.identity;
     public Vector3 camSpawnPos = Vector3.zero;
     public Quaternion camSpawnRot = Quaternion.identity;
     public bool owl = true;
@@ -83,12 +84,12 @@ public class Test_Connect : MonoBehaviourPunCallbacks
 
         if (owl)
         {
-            player = PhotonNetwork.Instantiate("Player_owl", playerSpawnPos, Quaternion.identity);
+            player = PhotonNetwork.Instantiate("Player_owl", playerSpawnPos, playerSpawnRot);
             PhotonNetwork.Instantiate("CamFollow_owl", camSpawnPos, camSpawnRot);
         }
         else
         {
-            player = PhotonNetwork.Instantiate("Player_avatar", playerSpawnPos, Quaternion.identity);
+            player = PhotonNetwork.Instantiate("Player_avatar", playerSpawnPos, playerSpawnRot);
             PhotonNetwork.Instantiate("CamFollow_avatar", camSpawnPos, camSpawnRot);
         }
 

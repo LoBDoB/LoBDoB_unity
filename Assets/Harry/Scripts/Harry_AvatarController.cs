@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
+using UnityEngine.UI;
 
 public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
 {
@@ -23,6 +24,15 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
     {
         _Animator = this.GetComponent<Animator>();
         _Ctrl = this.GetComponent<CharacterController>();
+
+        Harry_SquareManager.Instance.chatInput.onSubmit.AddListener(Chat);
+        Harry_SquareManager.Instance.player = gameObject;
+    }
+
+    void Chat(string s)
+    {
+        photonView.RPC("RPCChat", RpcTarget.All, s);
+        Harry_SquareManager.Instance.chatInput.text = "";
     }
 
     void Update()
@@ -290,6 +300,15 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
     {
         if (_Animator != null)
             _Animator.CrossFade(stateName, normalizedTransitionDuration);
+    }
+
+    [PunRPC]
+    void RPCChat(string s)
+    {
+        GameObject chat = Instantiate(Resources.Load<GameObject>("ChatCanvas"));
+        chat.GetComponent<Canvas>().worldCamera = Camera.main;
+        chat.GetComponent<Harry_SquareChat>().player = gameObject;
+        chat.transform.Find("Text").GetComponent<Text>().text = s;
     }
 
     [SerializeField]

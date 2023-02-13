@@ -46,6 +46,10 @@ MonoBehaviour:
   - RPCPlay
   - RPCSetParent
   - RPCSetSize
+  - CantHearYou
+  - ChangeColour
+  - HeresWhy
+  - RPCChat
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

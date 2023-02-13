@@ -28,6 +28,7 @@ public class Harry_SquareManager : MonoBehaviour
     public InputField chatInput;
     InputField spotLight;
     Button teleport;
+    Button emotion;
     Transform content;
 
     public GameObject player;
@@ -58,6 +59,10 @@ public class Harry_SquareManager : MonoBehaviour
         }
         teleport.transform.Find("Club").GetComponent<Button>().onClick.AddListener(Club);
         teleport.transform.Find("MyRoom").GetComponent<Button>().onClick.AddListener(MyRoom);
+
+        emotion = GameObject.Find("Emotion").GetComponent<Button>();
+        emotion.transform.Find("Motions").gameObject.SetActive(false);
+        emotion.onClick.AddListener(OnClickEmotion);
 
         // 딕셔너리에 함수 이름과 함수 기능을 추가
         functions.Add("마이룸 이동하기", MyRoom);
@@ -98,6 +103,19 @@ public class Harry_SquareManager : MonoBehaviour
         foreach (Transform tr in teleport.transform)
         {
             tr.gameObject.SetActive(!tr.gameObject.activeSelf);
+        }
+    }
+
+    void OnClickEmotion()
+    {
+        emotion.transform.Find("Motions").gameObject.SetActive(!emotion.transform.Find("Motions").gameObject.activeSelf);
+    }
+
+    public void OnClickMotions(string s)
+    {
+        if (player)
+        {
+            player.GetComponent<Harry_AvatarController>().EMOTE(s);
         }
     }
 

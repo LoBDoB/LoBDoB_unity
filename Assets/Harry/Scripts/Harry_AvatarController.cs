@@ -18,6 +18,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
     {
         {"Jump", false },
         {"Sit", false },
+        {"Emotion", false },
     };
 
     void Start()
@@ -68,8 +69,11 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
                 }
                 if (status_name == "Sit")
                 {
-                    //MOVE();
                     SIT();
+                }
+                if (status_name == "Emotion")
+                {
+                    //EMOTE();
                 }
             }
         }
@@ -99,6 +103,14 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
         else if (!_Animator.GetCurrentAnimatorStateInfo(0).IsTag("Sit") && !_Animator.GetCurrentAnimatorStateInfo(0).IsTag("Standing"))
         {
             _Status["Sit"] = false;
+        }
+        if (_Animator.GetCurrentAnimatorStateInfo(0).IsTag("Emotion"))
+        {
+            _Status["Emotion"] = true;
+        }
+        else if (!_Animator.GetCurrentAnimatorStateInfo(0).IsTag("Emotion"))
+        {
+            _Status["Emotion"] = false;
         }
     }
     //--------------------------------------------------------------------- GRAVITY
@@ -264,6 +276,11 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
             dist = Mathf.Lerp(dist, 0, Time.deltaTime);
             _Ctrl.Move(transform.forward * dist * Time.deltaTime);
         }
+    }
+
+    public void EMOTE(string s)
+    {
+        photonView.RPC("RPCCrossFade", RpcTarget.All, s, 0.1f);
     }
 
     //µµÂø À§Ä¡

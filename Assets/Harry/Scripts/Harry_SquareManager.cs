@@ -53,10 +53,7 @@ public class Harry_SquareManager : MonoBehaviour
 
         teleport = GameObject.Find("Teleport").GetComponent<Button>();
         teleport.onClick.AddListener(OnClickTeleport); 
-        foreach (Transform tr in teleport.transform)
-        {
-            tr.gameObject.SetActive(false);
-        }
+        foreach (Transform tr in teleport.transform) { tr.gameObject.SetActive(false); }
         teleport.transform.Find("Club").GetComponent<Button>().onClick.AddListener(Club);
         teleport.transform.Find("MyRoom").GetComponent<Button>().onClick.AddListener(MyRoom);
 

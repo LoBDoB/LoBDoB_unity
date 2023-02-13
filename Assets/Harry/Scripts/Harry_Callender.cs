@@ -11,6 +11,11 @@ public class Harry_Callender : MonoBehaviour
     public GameObject label;
     public Dropdown pallete;
 
+    int week = 0;
+    public Text weekIdx;
+    public Button prevWeek;
+    public Button nextWeek;
+
     int startIdx = -1;
     public int StartIdx
     {
@@ -37,7 +42,6 @@ public class Harry_Callender : MonoBehaviour
                 int maxCnt = 0;
                 for (int i = startIdx; i <= endIdx; i++)
                 {
-                    Debug.Log(i + ": " + dates[i].GetComponent<Harry_Date>().labelCnt);
                     if (dates[i].GetComponent<Harry_Date>().labelCnt >= maxCnt)
                         maxCnt = dates[i].GetComponent<Harry_Date>().labelCnt;
                 }
@@ -66,6 +70,16 @@ public class Harry_Callender : MonoBehaviour
                     go.transform.localPosition = new Vector3(0, 30 - maxCnt * 25);
                 }
 
+                if (endIdx >= 7)
+                {
+                    for (int i = 7; i < dates.Count; i++)
+                    {
+                        Color col = dates[i].gameObject.GetComponent<Image>().color;
+                        col.a = 1;
+                        dates[i].gameObject.GetComponent<Image>().color = col;
+                    }
+                }
+
                 endIdx = -1;
                 startIdx = -1;
             }
@@ -79,6 +93,13 @@ public class Harry_Callender : MonoBehaviour
         {
             dates.Add(tr.gameObject);
         }
+        for (int i = 0; i < dates.Count; i++)
+        {
+            dates[i].transform.Find("Text").GetComponent<Text>().text = (i + 1).ToString();
+        }
+
+        prevWeek.onClick.AddListener(OnClickPrev);
+        nextWeek.onClick.AddListener(OnClickNext);
     }
 
     // Update is called once per frame
@@ -107,6 +128,43 @@ public class Harry_Callender : MonoBehaviour
                     startIdx = -1;
                 }
             }
+        }
+    }
+
+    void OnClickPrev()
+    {
+        week--;
+        SetWeek();
+    }
+
+    void OnClickNext()
+    {
+        week++;
+        SetWeek();
+    }
+
+    void SetWeek()
+    {
+        week = Mathf.Clamp(week, 0, 3);
+        for (int i = 0; i < dates.Count; i++)
+        {
+            dates[i].transform.Find("Text").GetComponent<Text>().text = (i + 1 + week * 7).ToString();
+        }
+
+        switch (week)
+        {
+            case 0:
+                weekIdx.text = "2023년 2월 첫번째";
+                break;
+            case 1:
+                weekIdx.text = "2023년 2월 두번째";
+                break;
+            case 2:
+                weekIdx.text = "2023년 2월 세번째";
+                break;
+            case 3:
+                weekIdx.text = "2023년 2월 네번째";
+                break;
         }
     }
 }

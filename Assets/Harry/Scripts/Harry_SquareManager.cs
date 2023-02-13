@@ -29,11 +29,20 @@ public class Harry_SquareManager : MonoBehaviour
     InputField spotLight;
     Button teleport;
     Button emotion;
+    Button schedule;
     Transform content;
+
+    GameObject Callender;
 
     public GameObject player;
     public GameObject effectFac;
     public GameObject owlFac;
+
+    bool canMove = true;
+    public bool CanMove
+    {
+        get { return canMove; }
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -61,9 +70,15 @@ public class Harry_SquareManager : MonoBehaviour
         emotion.transform.Find("Motions").gameObject.SetActive(false);
         emotion.onClick.AddListener(OnClickEmotion);
 
+        schedule = GameObject.Find("Schedule").GetComponent<Button>(); 
+        schedule.onClick.AddListener(OnClickSchedule);  
+
         // 딕셔너리에 함수 이름과 함수 기능을 추가
         functions.Add("마이룸 이동하기", MyRoom);
         functions.Add("클럽 이동하기", Club);
+
+        Callender = GameObject.Find("CalCanvas");
+        Callender.SetActive(false);
     }
 
     // Update is called once per frame
@@ -113,6 +128,27 @@ public class Harry_SquareManager : MonoBehaviour
         if (player)
         {
             player.GetComponent<Harry_AvatarController>().EMOTE(s);
+        }
+    }
+
+    void OnClickSchedule()
+    {
+        Tablet();
+        Callender.SetActive(!Callender.activeSelf);
+    }
+
+    public bool isTablet = false;
+    void Tablet()
+    {
+        if (isTablet)
+        {
+            isTablet = false;
+            canMove = true;
+        }
+        else
+        {
+            isTablet = true;
+            canMove = false;
         }
     }
 

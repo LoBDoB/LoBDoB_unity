@@ -25,6 +25,7 @@ public class Harry_SquareManager : MonoBehaviour
 
     public static Harry_SquareManager Instance;
 
+    // 채팅 관련 함수는 AvatarController에 있음 (Photon 관련 이슈)
     public InputField chatInput;
     InputField spotLight;
     Button teleport;

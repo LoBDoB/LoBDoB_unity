@@ -38,7 +38,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
 
     void Update()
     {
-        if (photonView.IsMine)
+        if (photonView.IsMine && Harry_SquareManager.Instance.CanMove)
         {
             STATUS();
 

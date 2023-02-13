@@ -14,8 +14,12 @@ public class Harry_SquareChat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dir = transform.position - Camera.main.transform.position;
+        dir = transform.position + Vector3.up * 1.5f - Camera.main.transform.position;
         transform.rotation = Quaternion.LookRotation(dir);
-        transform.position = player.transform.position + new Vector3(1f, 2f, 0);
+        transform.position = player.transform.position;
+        foreach (Transform tr in transform)
+        {
+            tr.localPosition = new Vector3(1f, 2f, 0);
+        }
     }
 }

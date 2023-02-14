@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -82,6 +82,8 @@ public class Network_AI : MonoBehaviour
 
         Debug.LogError(jToken);
         Debug.LogError(jToken1);
+
+
 
        
         foreach (JToken data in jToken)

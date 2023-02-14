@@ -14,7 +14,13 @@ public class Network_AI : MonoBehaviour
 
 
 
-
+    // Start is called before the first frame update
+    void Start()
+    {
+        ChangeJson("hi");
+       
+        
+    }
 
     //IEnumerator UnityWebRequestGETTest()
     //{
@@ -64,7 +70,7 @@ public class Network_AI : MonoBehaviour
     }
 
 
-    void JsonParsing(string json)
+    public void JsonParsing(string json)
     {
         JObject jobject = JObject.Parse(json);
         Debug.LogError(jobject.ToString());
@@ -78,9 +84,10 @@ public class Network_AI : MonoBehaviour
         foreach (JToken data in jToken)
         {
             Debug.LogError(data);
-            SearchRecommend searchRecommend = new SearchRecommend();
 
-            searchRecommend.value.Add(data.ToString());
+            //SearchRecommend searchRecommend = new SearchRecommend();
+
+            //searchRecommend.value.Add(data.ToString());
         }
 
     }

@@ -10,6 +10,13 @@ public class Harry_Callender : MonoBehaviour
     public List<GameObject> dates = new List<GameObject>();
     public GameObject label;
     public Dropdown pallete;
+    public Toggle college;
+    public Toggle club;
+    public Toggle personal;
+
+    List<GameObject> colleges = new List<GameObject>();
+    List<GameObject> clubs = new List<GameObject>();
+    List<GameObject> personals = new List<GameObject>();
 
     int week = 0;
     public Text weekIdx;
@@ -48,25 +55,28 @@ public class Harry_Callender : MonoBehaviour
 
                 for (int i = startIdx; i <= endIdx; i++)
                 {
+                    GameObject go = Instantiate(label, dates[i].transform);
+
                     switch (pallete.value)
                     {
                         case 0:
-                            label.GetComponent<Image>().color = Color.red;
+                            go.GetComponent<Image>().color = Color.red;
+                            colleges.Add(go);
                             break;
                         case 1:
-                            label.GetComponent<Image>().color = Color.blue;
+                            go.GetComponent<Image>().color = Color.blue;
+                            clubs.Add(go);
                             break;
                         case 2:
-                            label.GetComponent<Image>().color = Color.green;
+                            go.GetComponent<Image>().color = Color.green;
+                            personals.Add(go);
                             break;
                     }
-                    GameObject go = Instantiate(label, dates[i].transform);
 
                     if (i != startIdx)
                         go.transform.GetChild(0).gameObject.SetActive(false);
 
                     dates[i].GetComponent<Harry_Date>().labelCnt = (maxCnt + 1);
-                    //go.GetComponent<RectTransform>().position = new Vector3(0, 30 - maxCnt * 25);
                     go.transform.localPosition = new Vector3(0, 30 - maxCnt * 25);
                 }
 
@@ -100,6 +110,10 @@ public class Harry_Callender : MonoBehaviour
 
         prevWeek.onClick.AddListener(OnClickPrev);
         nextWeek.onClick.AddListener(OnClickNext);
+
+        college.onValueChanged.AddListener(OnClickCollege);
+        club.onValueChanged.AddListener(OnClickClub);
+        personal.onValueChanged.AddListener(OnClickPersonal);
     }
 
     // Update is called once per frame
@@ -141,6 +155,30 @@ public class Harry_Callender : MonoBehaviour
     {
         week++;
         SetWeek();
+    }
+
+    void OnClickCollege(bool value)
+    {
+        foreach (GameObject go in colleges)
+        {
+            go.SetActive(value);
+        }
+    }
+
+    void OnClickClub(bool value)
+    {
+        foreach (GameObject go in clubs)
+        {
+            go.SetActive(value);
+        }
+    }
+
+    void OnClickPersonal(bool value)
+    {
+        foreach (GameObject go in personals)
+        {
+            go.SetActive(value);
+        }
     }
 
     void SetWeek()

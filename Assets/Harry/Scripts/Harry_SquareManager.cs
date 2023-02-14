@@ -38,6 +38,7 @@ public class Harry_SquareManager : MonoBehaviour
     public GameObject player;
     public GameObject effectFac;
     public GameObject owlFac;
+    public GameObject tablet;
 
     bool canMove = true;
     public bool CanMove
@@ -89,6 +90,13 @@ public class Harry_SquareManager : MonoBehaviour
         {
             spotLight.gameObject.SetActive(!spotLight.gameObject.activeSelf);
         }
+
+        if (!tablet.activeSelf && player != null)
+        {
+            tablet.transform.parent = Camera.main.gameObject.transform;
+            tablet.transform.localPosition = new Vector3(-0.349000007f, -0.158999994f, 0.244000003f);
+            tablet.gameObject.SetActive(true);
+        }
     }
 
     void SpotLight(string s)
@@ -101,7 +109,7 @@ public class Harry_SquareManager : MonoBehaviour
         foreach (var func in functions)
         {
             // 만약 검색한 키워드를 포함하는 함수 이름이 있다면
-            if (func.Key.Contains(s))
+            if (func.Key.Contains(s) && s.Length > 0)
             {
                 // 함수의 기능과 이름을 담아서 버튼으로 생성
                 GameObject go = Instantiate(funcFac, content);
@@ -135,6 +143,7 @@ public class Harry_SquareManager : MonoBehaviour
     void OnClickSchedule()
     {
         Tablet();
+        spotLight.gameObject.SetActive(false);
         Callender.SetActive(!Callender.activeSelf);
     }
 

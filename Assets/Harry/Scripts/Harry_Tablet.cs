@@ -12,7 +12,7 @@ public class Harry_Tablet : MonoBehaviour
         get { return isOn; }
         set
         {
-            if (isOn != value)
+            if (isOn != value && cam != null)
             {
                 isOn = value;
 
@@ -30,14 +30,13 @@ public class Harry_Tablet : MonoBehaviour
                     iTween.MoveTo(gameObject, iTween.Hash("x", -0.349000007f, "y", -0.158999994f, "z", 0.244000003f, "islocal", true, "time", 1f, "easetype", iTween.EaseType.easeOutCirc));
                     cam.EndInter();
                     Camera.main.cullingMask = -1;
-                    Cursor.visible = false;
                 }
             }
         }
     }
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         cam = transform.parent.transform.parent.GetComponent<Harry_CamController>();
     }

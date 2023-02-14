@@ -201,7 +201,7 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
 		}
 		else if (!_Ctrl.isGrounded)
 		{
-            _MoveDirection.y -= 1.5f * Time.deltaTime;
+            //_MoveDirection.y -= 1.5f * Time.deltaTime;
 		}
         // Status
         if (_Status["Fly"])
@@ -229,7 +229,7 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
             fly_pose = null;
             fly_pose = StartCoroutine(FlyPose());
         }
-        else if (Input.GetKeyUp(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.LeftControl))
 		{
             photonView.RPC("RPCCrossFade", RpcTarget.All, "landing", 0.1f);
             try{
@@ -276,9 +276,15 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
 				_MoveDirection.y = 0;
 			}
 		}
+        else if (Input.GetKey(KeyCode.LeftControl) && !_Status["Stop"] && !_Ctrl.isGrounded)
+        {
+            _MoveDirection.y -= 1.0f * Time.deltaTime;
+        }
         else{
-			_MoveDirection.y -= 1.0f * Time.deltaTime;
-		}
+            //_MoveDirection.y -= 1.0f * Time.deltaTime;
+            _MoveDirection.y = 0;
+
+        }
 
 		_Ctrl.Move(_MoveDirection * Time.deltaTime);
 	}

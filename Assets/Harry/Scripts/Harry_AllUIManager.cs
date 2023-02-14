@@ -81,6 +81,11 @@ public class Harry_AllUIManager : MonoBehaviour
         {
             spotLight.gameObject.SetActive(!spotLight.gameObject.activeSelf);
         }
+
+        if (content.childCount > 0)
+            content.parent.parent.GetComponent<Image>().enabled = true;
+        else
+            content.parent.parent.GetComponent<Image>().enabled = false;
     }
 
     Coroutine co = null;
@@ -140,9 +145,7 @@ public class Harry_AllUIManager : MonoBehaviour
                 }
                 catch(Exception e)
                 {
-                    GameObject go = Instantiate(funcFac, content);
-                    go.GetComponent<Button>().onClick.AddListener(None);
-                    go.transform.Find("Text").GetComponent<Text>().text = "검색결과가 없습니다.";
+                    
                 }
             }));
         }

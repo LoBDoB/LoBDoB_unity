@@ -106,6 +106,7 @@ public class Harry_SquareManager : MonoBehaviour
         {
             Destroy(tr.gameObject);
         }
+        bool can = false;
         foreach (var func in functions)
         {
             // 만약 검색한 키워드를 포함하는 함수 이름이 있다면
@@ -115,7 +116,12 @@ public class Harry_SquareManager : MonoBehaviour
                 GameObject go = Instantiate(funcFac, content);
                 go.GetComponent<Button>().onClick.AddListener(func.Value);
                 go.transform.Find("Text").GetComponent<Text>().text = func.Key.ToString();
+                can = true;
             }
+        }
+        if (can == false)
+        {
+
         }
     }
 

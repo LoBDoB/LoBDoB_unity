@@ -70,6 +70,7 @@ public class ExtendCollider : MonoBehaviour
                 extendObject.transform.SetParent(beginningParent);
                 scale.sizeDelta = beginningSize;
                 scale.localPosition = beginningPos;
+                extend = false;
             }
         }
     }

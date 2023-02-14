@@ -1,7 +1,9 @@
+using Newtonsoft.Json.Linq;
 using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -81,8 +83,11 @@ public class Harry_AllUIManager : MonoBehaviour
         }
     }
 
+    Coroutine co = null;
     void SpotLight(string s)
     {
+        if (co != null)
+            StopCoroutine(co);
         // 같은 기능의 버튼이 여러개 추가되는것을 막기 위해 매번마다 버튼 다 삭제
         foreach (Transform tr in content)
         {
@@ -101,9 +106,45 @@ public class Harry_AllUIManager : MonoBehaviour
                 can = true;
             }
         }
+        JToken token = null;
         if (can == false)
         {
+            co = StartCoroutine(na.SendMessaget(s, (www) =>
+            {
+                JObject jobject = JObject.Parse(www.downloadHandler.text);
 
+                // JSON 데이터 하위 객체인 members 객체의 name 값을 반복적으로 접근하는 방법
+                token = jobject["editWord"];
+                try
+                {
+                    bool exist = false;
+                    foreach (var func in functions)
+                    {
+                        // 만약 검색한 키워드를 포함하는 함수 이름이 있다면
+                        if (func.Key.Contains(token.ToString()))
+                        {
+                            // 함수의 기능과 이름을 담아서 버튼으로 생성
+                            GameObject go = Instantiate(funcFac, content);
+                            go.GetComponent<Button>().onClick.AddListener(func.Value);
+                            go.transform.Find("Text").GetComponent<Text>().text = func.Key.ToString();
+                            exist = true;
+                        }
+                    }
+
+                    if (!exist)
+                    {
+                        GameObject go = Instantiate(funcFac, content);
+                        go.GetComponent<Button>().onClick.AddListener(None);
+                        go.transform.Find("Text").GetComponent<Text>().text = "검색결과가 없습니다.";
+                    }
+                }
+                catch(Exception e)
+                {
+                    GameObject go = Instantiate(funcFac, content);
+                    go.GetComponent<Button>().onClick.AddListener(None);
+                    go.transform.Find("Text").GetComponent<Text>().text = "검색결과가 없습니다.";
+                }
+            }));
         }
     }
 
@@ -144,6 +185,11 @@ public class Harry_AllUIManager : MonoBehaviour
     void Club()
     {
         StartCoroutine(ChangeToOwl("Harry_ClubWorld"));
+    }
+
+    void None()
+    {
+
     }
 
     IEnumerator ChangeToOwl(string sceneName)

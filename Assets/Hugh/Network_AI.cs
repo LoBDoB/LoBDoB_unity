@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System;
 
 public class Network_AI : MonoBehaviour
 {
@@ -37,18 +38,18 @@ public class Network_AI : MonoBehaviour
     //    {
     //        Debug.Log("error");
     //    }
-    
+
 
     void ChangeJson(string text)
     {
         //UserInput userInput = new UserInput();
         //userInput.value = text;
         //string json = JsonUtility.ToJson(userInput);
-        StartCoroutine(SendMessaget(text));
+        //StartCoroutine(SendMessaget(text));
     }
 
 
-    IEnumerator SendMessaget(string json)
+    public IEnumerator SendMessaget(string json, Action<UnityWebRequest> callback)
     {
         //string json = JsonUtility.ToJson(userInput);
         WWWForm wWForm = new WWWForm();
@@ -63,7 +64,8 @@ public class Network_AI : MonoBehaviour
         if (www != null)
         {
             var result1 = www.downloadHandler.text;
-            JsonParsing(result1);
+            callback(www);
+            //JsonParsing(result1);
             //Debug.LogError(result1);
         }
         www.Dispose();
@@ -96,7 +98,6 @@ public class Network_AI : MonoBehaviour
         }
 
     }
-
 
 
     //IEnumerator Upload(string URL, string json)

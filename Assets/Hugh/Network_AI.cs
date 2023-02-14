@@ -14,13 +14,7 @@ public class Network_AI : MonoBehaviour
 
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        ChangeJson("hi");
-       
-        
-    }
+
 
     //IEnumerator UnityWebRequestGETTest()
     //{

@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,7 +17,7 @@ public class Network_AI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ChangeJson("hi");
+        ChangeJson("기느");
        
         
     }
@@ -37,14 +37,14 @@ public class Network_AI : MonoBehaviour
     //    {
     //        Debug.Log("error");
     //    }
-    //}
+    
 
     void ChangeJson(string text)
     {
-        UserInput userInput = new UserInput();
-        userInput.value = text;
-        string json = JsonUtility.ToJson(userInput);
-        StartCoroutine(SendMessaget(json));
+        //UserInput userInput = new UserInput();
+        //userInput.value = text;
+        //string json = JsonUtility.ToJson(userInput);
+        StartCoroutine(SendMessaget(text));
     }
 
 
@@ -76,8 +76,13 @@ public class Network_AI : MonoBehaviour
         Debug.LogError(jobject.ToString());
 
         // JSON 데이터 하위 객체인 members 객체의 name 값을 반복적으로 접근하는 방법
-        JToken jToken = jobject["username"];
+        JToken jToken = jobject["searchResult"];
+
+        JToken jToken1 = jobject["editWord"];
+
         Debug.LogError(jToken);
+        Debug.LogError(jToken1);
+
 
 
        
@@ -129,11 +134,11 @@ public class SearchRecommend
 
 }
 
-public class UserInput
-{
-    public string value;
+//public class UserInput
+//{
+//    public string value;
 
-}
+//}
 
 public class Keyword
 {

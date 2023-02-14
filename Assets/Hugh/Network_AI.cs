@@ -2,31 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 public class Network_AI : MonoBehaviour
 {
 
-    string url = "http://127.0.0.1:8000/register";
+    string url = "http://192.168.50.55:8000/button_model/";
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        User user1 = new User();
 
-        user1.name = "seung";
-        user1.ID = "asdf";
+        UserInput userInput = new UserInput();
 
+        userInput.value = "설정";
 
 
-        string json = JsonUtility.ToJson(user1);
+        string json = JsonUtility.ToJson(userInput);
 
         Debug.LogError(json);
 
 
-        StartCoroutine(SendMessaget());
+        StartCoroutine(SendMessaget(json));
 
         //StartCoroutine(Upload("http://192.168.50.215:5000/create",json));
 
@@ -49,12 +51,12 @@ public class Network_AI : MonoBehaviour
         }
     }
 
-    IEnumerator SendMessaget()
+    IEnumerator SendMessaget(string json)
     {
         WWWForm wWForm = new WWWForm();
 
-        wWForm.AddField("username","1111");
-        
+        wWForm.AddField("username", json);
+
 
         UnityWebRequest www = UnityWebRequest.Post(url, wWForm);
 
@@ -62,55 +64,78 @@ public class Network_AI : MonoBehaviour
 
         if (www != null)
         {
-            var result = www.downloadHandler.text;
-            Debug.LogError(result);
+            var result1 = www.downloadHandler.text;
+            JsonParsing(result1);
+            //Debug.LogError(result1);
         }
         www.Dispose();
     }
 
 
-    IEnumerator Upload(string URL, string json)
+    //IEnumerator Upload(string URL, string json)
+    //{
+    //    using (UnityWebRequest request = UnityWebRequest.Post(URL, json))
+    //    {
+    //        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
+    //        request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+    //        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+    //        request.SetRequestHeader("Contnet-Type", "application/json");
+
+
+    //        yield return request.SendWebRequest();
+
+
+
+    //        if (request.isNetworkError || request.isHttpError)
+    //        {
+    //            Debug.LogError(request.error);
+    //        }
+    //        else
+    //        {
+    //            Debug.Log(request.downloadHandler.text);
+    //        }
+
+    //        request.Dispose();
+    //    }
+    //}
+
+
+    void JsonParsing(string json)
     {
-        using (UnityWebRequest request = UnityWebRequest.Post(URL, json))
+        JObject jobject = JObject.Parse(json);
+        Debug.LogError(jobject.ToString());
+
+        // JSON 데이터 하위 객체인 members 객체의 name 값을 반복적으로 접근하는 방법
+        JToken jToken = jobject["username"];
+        Debug.LogError(jToken);
+
+
+       
+        foreach (JToken data in jToken)
         {
-            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
-            request.uploadHandler = new UploadHandlerRaw(jsonToSend);
-            request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-            request.SetRequestHeader("Contnet-Type","application/json");
-
-
-            yield return request.SendWebRequest();
-
-
-
-            if (request.isNetworkError || request.isHttpError)
-            {
-                Debug.LogError(request.error);
-            }
-            else
-            {
-                Debug.Log(request.downloadHandler.text);
-            }
-
-            request.Dispose();
+            Debug.LogError(data);
         }
+
     }
 
-
 }
 
-
-
-public class Users
+public class SearchRecommend
 {
-    public List<User> users = new List<User>();
+    public List<string> value;
+
 }
 
-public class User
+public class UserInput
+{
+    public string value;
+
+}
+
+public class Keyword
 {
     public string name;
-    public string ID;
-
+   
 }
 
 

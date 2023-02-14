@@ -9,6 +9,7 @@ public class Harry_CamController : MonoBehaviourPun
     float rotSpeed = 600f;
 
     GameObject player;
+    GameObject tablet;
 
     float mx;
     float my;
@@ -24,6 +25,9 @@ public class Harry_CamController : MonoBehaviourPun
     {
         player = GameObject.Find(PhotonNetwork.NickName);
         camPos = transform.GetChild(0).localPosition;
+
+        tablet = GameObject.Find("Tablet");
+        tablet.GetComponent<Harry_Tablet>().cam = this;
 
         if (!photonView.IsMine)
         {
@@ -88,5 +92,7 @@ public class Harry_CamController : MonoBehaviourPun
     private void LateUpdate()
     {
         transform.position = player.transform.position;
+        tablet.transform.position = Camera.main.transform.position;
+        tablet.transform.rotation = Camera.main.transform.rotation;
     }
 }

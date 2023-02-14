@@ -27,7 +27,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
         _Ctrl = this.GetComponent<CharacterController>();
 
         Harry_SquareManager.Instance.chatInput.onSubmit.AddListener(Chat);
-        Harry_SquareManager.Instance.player = gameObject;
+        Harry_AllUIManager.Instance.player = gameObject;
     }
 
     void Chat(string s)

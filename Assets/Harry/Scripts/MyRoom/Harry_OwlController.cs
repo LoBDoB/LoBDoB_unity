@@ -33,7 +33,8 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
     {
         _Animator = this.GetComponent<Animator>();
         _Ctrl = this.GetComponent<CharacterController>();
-        _View_Camera = GameObject.Find("CamFollow");
+
+        Harry_AllUIManager.Instance.player = gameObject;
     }
 
     //private void LateUpdate()
@@ -182,12 +183,6 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
             _Status["Fly"] = false;
         }
     }
-    //--------------------------------------------------------------------- CAMERA
-    private void CAMERA ()
-	{
-         _View_Camera.transform.position = this.transform.position;
-                //+ new Vector3(0, 0.5f, 3);
-	}
     //--------------------------------------------------------------------- GRAVITY
 	private void GRAVITY ()
 	{
@@ -280,10 +275,13 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
         {
             _MoveDirection.y -= 1.0f * Time.deltaTime;
         }
-        else{
-            //_MoveDirection.y -= 1.0f * Time.deltaTime;
+        else if (!Physics.Raycast(transform.position, Vector3.down, 1.5f, LayerMask.GetMask("Ground")))
+        {
             _MoveDirection.y = 0;
-
+        }
+        else
+        {
+            _MoveDirection.y -= 1.5f * Time.deltaTime;
         }
 
 		_Ctrl.Move(_MoveDirection * Time.deltaTime);

@@ -1288,6 +1288,10 @@ PrefabInstance:
       value: Terrain (2)
       objectReference: {fileID: 0}
     - target: {fileID: 2963480395549777646, guid: 09d73b8f1ce1568409e5a593575a8e05, type: 3}
+      propertyPath: m_Layer
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963480395549777646, guid: 09d73b8f1ce1568409e5a593575a8e05, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

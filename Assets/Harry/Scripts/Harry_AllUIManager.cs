@@ -9,16 +9,8 @@ using UnityEngine.UI;
 
 public class Harry_AllUIManager : MonoBehaviour
 {
-    #region 스폿라이트 기능들
-    void MyRoom()
-    {
-        StartCoroutine(ChangeToOwl("Harry_MainLobbyDesign"));
-    }
-    void Club()
-    {
-        StartCoroutine(ChangeToOwl("Harry_ClubWorld"));
-    }
-    #endregion
+    Network_AI na;
+
     // 스포트라이트로 검색될 기능의 이름과 함수를 담는 딕셔너리
     private Dictionary<string, UnityAction> functions = new Dictionary<string, UnityAction>();
     public GameObject funcFac;
@@ -70,9 +62,12 @@ public class Harry_AllUIManager : MonoBehaviour
         // 딕셔너리에 함수 이름과 함수 기능을 추가
         functions.Add("마이룸 이동하기", MyRoom);
         functions.Add("클럽 이동하기", Club);
+        functions.Add("일정 확인하기", OnClickSchedule);
 
         Callender = transform.Find("CallenderUI").gameObject;
         Callender.SetActive(false);
+
+        na = GetComponent<Network_AI>();
 
         DontDestroyOnLoad(gameObject);
     }
@@ -140,6 +135,15 @@ public class Harry_AllUIManager : MonoBehaviour
             isTablet = true;
             canMove = false;
         }
+    }
+
+    void MyRoom()
+    {
+        StartCoroutine(ChangeToOwl("Harry_MainLobbyDesign"));
+    }
+    void Club()
+    {
+        StartCoroutine(ChangeToOwl("Harry_ClubWorld"));
     }
 
     IEnumerator ChangeToOwl(string sceneName)

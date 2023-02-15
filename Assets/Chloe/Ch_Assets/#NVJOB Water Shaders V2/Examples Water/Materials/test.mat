@@ -21,8 +21,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlbedoTex1:
-        m_Texture: {fileID: 2800000, guid: d6840f77873948aeba2cdce3985ccf47, type: 3}
-        m_Scale: {x: 1, y: 2}
+        m_Texture: {fileID: 2800000, guid: c0110ffdfe4de844887e532957697d06, type: 3}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _AlbedoTex2:
         m_Texture: {fileID: 2800000, guid: 21cbc816b57948b196ced72a3c33a909, type: 3}
@@ -105,8 +105,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap1:
-        m_Texture: {fileID: 2800000, guid: e7ee2ee1e448437e8de9a957ccc37298, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 27fbcf245cef5d84b938ac0bbd6337e7, type: 3}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _NormalMap2:
         m_Texture: {fileID: 2800000, guid: b4b23fc51ba94ffab43b9704acdd1bfb, type: 3}
@@ -136,8 +136,8 @@ Material:
     m_Floats:
     - _Albedo2Flow: 0.9
     - _Albedo2Tiling: 0.9
-    - _AlbedoContrast: -0.03
-    - _AlbedoIntensity: 4.2
+    - _AlbedoContrast: 0.51
+    - _AlbedoIntensity: 3.63
     - _Brightness: 1
     - _BumpScale: 1
     - _Contrast: 1
@@ -163,7 +163,7 @@ Material:
     - _FoamScale: 0.1
     - _GlossAmount: 0.03
     - _GlossMapScale: 1
-    - _Glossiness: 0.9
+    - _Glossiness: 0.409
     - _GlossyReflections: 1
     - _Intensity: 2
     - _IntensityMicrowave: 0.68
@@ -174,7 +174,7 @@ Material:
     - _InvFade: 0
     - _MainDetailFlow: 1
     - _MainDetailScale: 1
-    - _Metallic: 0.88
+    - _Metallic: 0.91
     - _MicrowaveScale: 1
     - _MicrowaveStrength: 0.91
     - _MinuteDetailIntensity: 1.455
@@ -190,7 +190,7 @@ Material:
     - _Mitigation: 22.4
     - _Mode: 0
     - _NormalDetailFlow: 1
-    - _NormalMap1Strength: 1.94
+    - _NormalMap1Strength: 3.03
     - _NormalMap2Flow: -4.03
     - _NormalMap2Strength: 0.72
     - _NormalMap2Tiling: 1.2
@@ -218,7 +218,7 @@ Material:
     - _Saturation: 1
     - _Shininess: 0.157
     - _SmoothnessTextureChannel: 0
-    - _SoftFactor: 0.11
+    - _SoftFactor: 0.1
     - _SpecularHighlights: 1
     - _Speed: 0.5
     - _SpeedX: 0.1
@@ -232,7 +232,7 @@ Material:
     - _WaveSpeed: 20
     - _ZWrite: 1
     m_Colors:
-    - _AlbedoColor: {r: 0.04736614, g: 0.043279648, b: 0.03863591, a: 0.5254902}
+    - _AlbedoColor: {r: 0.14625606, g: 0.19556895, b: 0.2735849, a: 0.67058825}
     - _BlendColor: {r: 0.29411763, g: 0.29411763, b: 0.29411763, a: 1}
     - _Color: {r: 1, g: 0.7924575, b: 0.55200005, a: 1}
     - _DiffuseColor: {r: 0.32352936, g: 0.32352936, b: 0.32352936, a: 1}

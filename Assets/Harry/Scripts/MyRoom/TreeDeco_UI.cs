@@ -93,6 +93,7 @@ public class TreeDeco_UI : MonoBehaviourPun, IPointerDownHandler
                     //decoItem.transform.parent = hit.transform.parent;
                     //decoItem.transform.localPosition = Vector3.zero;
                     photonView.RPC("RPCSetParent", RpcTarget.AllBuffered, decoItem.name, hit.transform.parent.name);
+                    decoItem.transform.localRotation = decoItemFac.transform.rotation;
 
                     // 스케일 애니메이션
                     Vector3 scale = decoItem.transform.localScale;
@@ -121,6 +122,7 @@ public class TreeDeco_UI : MonoBehaviourPun, IPointerDownHandler
                     //decoItem.transform.parent = hit.transform;
                     //decoItem.transform.localPosition = Vector3.zero;
                     photonView.RPC("RPCSetParent", RpcTarget.AllBuffered, decoItem.name, hit.transform.name);
+                    decoItem.transform.localRotation = decoItemFac.transform.rotation;
 
                     // 스케일 애니메이션
                     Vector3 scale = decoItem.transform.localScale;

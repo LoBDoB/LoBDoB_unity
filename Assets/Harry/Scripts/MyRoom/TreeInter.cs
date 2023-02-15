@@ -8,14 +8,21 @@ public class TreeInter : MonoBehaviourPun
 {
     public GameObject pressF;
     public GameObject custom_UI;
-    public GameObject main_UI;
 
     bool canInter;
 
     Quaternion treeRot;
     Vector3 treePos;
     Vector3 camPos;
-    float fov;
+
+    [SerializeField]
+    Vector3 treeInterPos;
+    [SerializeField]
+    Vector3 treeInterRot;
+    [SerializeField]
+    Vector3 treeFrontPos;
+    [SerializeField]
+    Vector3 treeFrontRot;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +34,7 @@ public class TreeInter : MonoBehaviourPun
         treeRot = transform.parent.rotation;
         treePos = transform.parent.position;
 
-        camPos = new Vector3(-18.57f, 13.38f, 42.07f);
+        camPos = treeFrontPos;
     }
 
     // Update is called once per frame
@@ -62,14 +69,14 @@ public class TreeInter : MonoBehaviourPun
             Vector3 dir = Vector3.zero; 
             float v = Input.GetAxisRaw("Vertical");
             float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
-            // 마우스 좌클릭으로 캠 위치 이동
-            dir = v * transform.forward;
+            // W, S 키로 카메라 이동
+            dir = v * Vector3.up;
             transform.parent.position -= dir * 15f * Time.deltaTime;
 
-            Vector3 treeDir = (treePos - new Vector3(-18.57f, 13.38f, 42.07f)).normalized;
+            Vector3 treeDir = (treePos - treeFrontPos).normalized;
             camPos += treeDir * scrollWheel * 1000f * Time.deltaTime;
             // 스크롤로 확대
-            cc.StartInter(camPos, new Vector3(0, -157.462f, 0));
+            cc.StartInter(camPos, treeFrontRot);
         }
 
         // F키 눌러서 오브젝트 삭제
@@ -117,11 +124,9 @@ public class TreeInter : MonoBehaviourPun
         custom_UI.SetActive(true);
         canInter = false;
         // 카메라를 나무 정면으로 이동
-        cc.StartInter(new Vector3(-18.57f, 13.38f, 42.07f), new Vector3(0, -157.462f, 0));
+        cc.StartInter(treeFrontPos, treeFrontRot);
         // 플레이어가 못움직이게
         Harry_GameManager.Instance.Player_CanMove = false;
-
-        main_UI.SetActive(false);
     }
 
     // 나무 커스터마이징 종료
@@ -134,7 +139,7 @@ public class TreeInter : MonoBehaviourPun
         custom_UI.SetActive(false);
         canInter = true;
         // 구역 안에 들어올 때의 카메라 위치, 각도로 이동
-        cc.StartInter(new Vector3(-17.39f, 6.41f, 18.37f), new Vector3(18.863f, -157.462f, 0));
+        cc.StartInter(treeInterPos, treeInterRot);
         //플레이어가 움직일 수 있게
         Harry_GameManager.Instance.Player_CanMove = true;
 
@@ -143,9 +148,7 @@ public class TreeInter : MonoBehaviourPun
         // 나무의 위치 또한 원상복구
         transform.parent.position = treePos;
         
-        camPos = new Vector3(-18.57f, 13.38f, 42.07f);
-
-        main_UI.SetActive(true); 
+        camPos = treeFrontPos;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -158,7 +161,7 @@ public class TreeInter : MonoBehaviourPun
             canInter= true;
 
             // 카메라 이동
-            cc.StartInter(new Vector3(-17.39f, 6.41f, 18.37f), new Vector3(18.863f, -157.462f, 0));
+            cc.StartInter(treeInterPos, treeInterRot);
         }
     }
 

@@ -28,6 +28,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
 
         Harry_SquareManager.Instance.chatInput.onSubmit.AddListener(Chat);
         Harry_AllUIManager.Instance.player = gameObject;
+        Harry_SquareManager.Instance.player = gameObject;
     }
 
     void Chat(string s)
@@ -322,10 +323,13 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void RPCChat(string s)
     {
-        GameObject chat = Instantiate(Resources.Load<GameObject>("ChatCanvas"));
-        chat.GetComponent<Canvas>().worldCamera = Camera.main;
-        chat.GetComponent<Harry_SquareChat>().player = gameObject;
-        chat.transform.Find("Text").GetComponent<Text>().text = s;
+        if (photonView.IsMine)
+        {
+            GameObject chat = Instantiate(Resources.Load<GameObject>("ChatCanvas"));
+            chat.GetComponent<Canvas>().worldCamera = Camera.main;
+            chat.GetComponent<Harry_SquareChat>().player = gameObject;
+            chat.transform.Find("Text").GetComponent<Text>().text = s;
+        }
     }
 
     [SerializeField]

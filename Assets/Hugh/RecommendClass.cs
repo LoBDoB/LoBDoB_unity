@@ -27,7 +27,7 @@ public class RecommendClass : MonoBehaviour
     public List<string> lecture_Title = new List<string>();
     public List<string> lecture_State = new List<string>();
     public List<string> lecture_URL = new List<string>();
-    public List<string> lecture_Line = new List<string>();
+    //public List<string> lecture_Line = new List<string>();
     public List<string> lecture_IMG_URL = new List<string>();
 
 
@@ -86,6 +86,27 @@ public class RecommendClass : MonoBehaviour
         JObject json = JObject.Parse(text);
         JToken jt = json["searchResult"];
         Debug.LogError(jt);
+
+        Transform[] childList = content.GetComponentsInChildren<Transform>();
+
+
+        if (childList != null)
+        {
+            for (int i = 1; i< childList.Length; i++)
+            {
+                if (childList[i] != transform)
+                {
+                    Destroy(childList[i].gameObject);
+                }
+            }
+        }
+
+        lecture_Title = new List<string>();
+        lecture_State = new List<string>();
+        lecture_IMG_URL = new List<string>();
+        lecture_URL = new List<string>();
+
+
         foreach (JProperty j in jt)
         {
             //Debug.LogError("key name : " + j.Name);
@@ -94,7 +115,7 @@ public class RecommendClass : MonoBehaviour
 
             lecture_Title.Add(j.Name);
             lecture_State.Add(j.Value["수강 가능 여부"].ToString());
-            lecture_Line.Add(j.Value["강좌 계열"].ToString());
+            //lecture_Line.Add(j.Value["강좌 계열"].ToString());
             lecture_URL.Add(j.Value["URL 강좌 링크"].ToString());
             lecture_IMG_URL.Add(j.Value["이미지 url"].ToString());
 

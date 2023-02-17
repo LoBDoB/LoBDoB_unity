@@ -183,7 +183,7 @@ public class Harry_AllUIManager : MonoBehaviour
 
     void MyRoom()
     {
-        StartCoroutine(ChangeToOwl("Harry_MainLobbyDesign"));
+        StartCoroutine(ChangeToOwl("Harry_MyRoom_New"));
     }
     void Club()
     {

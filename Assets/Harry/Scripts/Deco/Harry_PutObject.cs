@@ -18,7 +18,7 @@ public class Harry_PutObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        room = GameObject.Find("Room").transform;
+        room = GameObject.Find("Map").transform;
     }
 
     // Update is called once per frame
@@ -42,7 +42,7 @@ public class Harry_PutObject : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 50f, LayerMask.GetMask("Floor")))
+            if (Physics.Raycast(ray, out hit, 50f, LayerMask.GetMask("Ground")))
             {
                 obj = Instantiate(objFactory);
                 obj.transform.parent = transform;
@@ -56,7 +56,7 @@ public class Harry_PutObject : MonoBehaviour
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 50f, LayerMask.GetMask("Floor")))
+            if (Physics.Raycast(ray, out hit, 50f, LayerMask.GetMask("Ground")))
             {
                 obj.transform.position = hit.point;
                 Vector3 angle = obj.transform.eulerAngles;

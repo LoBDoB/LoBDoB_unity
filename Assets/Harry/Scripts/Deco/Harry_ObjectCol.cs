@@ -25,13 +25,13 @@ public class Harry_ObjectCol : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer != LayerMask.NameToLayer("Floor"))
+        if (other.gameObject.layer != LayerMask.NameToLayer("Ground"))
             IsCollide = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer != LayerMask.NameToLayer("Floor"))
+        if (other.gameObject.layer != LayerMask.NameToLayer("Ground"))
             IsCollide = false;
     }
 }

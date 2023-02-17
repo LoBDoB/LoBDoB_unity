@@ -9,6 +9,7 @@ public class Harry_DecoCam : MonoBehaviour
     [SerializeField]
     float rotSpeed;
 
+    public Harry_CamController cc;
     private void Start()
     {
 
@@ -18,6 +19,7 @@ public class Harry_DecoCam : MonoBehaviour
     void Update()
     {
         Third_Demen_Cam();
+        cc.StartInter(transform.position, transform.eulerAngles);
     }
 
     void Third_Demen_Cam()

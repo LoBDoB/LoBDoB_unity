@@ -40,7 +40,7 @@ public class Network_AI : MonoBehaviour
     //    }
 
 
-    void ChangeJson(string text)
+    public void ChangeJson(string text)
     {
         //UserInput userInput = new UserInput();
         //userInput.value = text;
@@ -81,6 +81,8 @@ public class Network_AI : MonoBehaviour
         JToken jToken = jobject["searchResult"];
 
         JToken jToken1 = jobject["editWord"];
+
+        
 
         Debug.LogError(jToken);
         Debug.LogError(jToken1);

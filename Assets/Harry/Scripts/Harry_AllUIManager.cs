@@ -21,6 +21,8 @@ public class Harry_AllUIManager : MonoBehaviour
 
     InputField spotLight;
     Button teleport;
+    GameObject teleport_Club;
+    GameObject teleport_Myroom;
     Button schedule;
     Transform content;
 
@@ -54,9 +56,12 @@ public class Harry_AllUIManager : MonoBehaviour
 
         teleport = transform.Find("Teleport").GetComponent<Button>();
         teleport.onClick.AddListener(OnClickTeleport);
-        foreach (Transform tr in teleport.transform) { tr.gameObject.SetActive(false); }
-        teleport.transform.Find("Club").GetComponent<Button>().onClick.AddListener(Club);
-        teleport.transform.Find("MyRoom").GetComponent<Button>().onClick.AddListener(MyRoom);
+        teleport_Club = teleport.transform.Find("Club").gameObject;
+        teleport_Club.GetComponent<Button>().onClick.AddListener(Club);
+        teleport_Club.gameObject.SetActive(false);
+        teleport_Myroom = teleport.transform.Find("MyRoom").gameObject;
+        teleport_Myroom.GetComponent<Button>().onClick.AddListener(MyRoom);
+        teleport_Myroom.gameObject.SetActive(false);
 
         schedule = transform.Find("Schedule").GetComponent<Button>();
         schedule.onClick.AddListener(OnClickSchedule);
@@ -153,10 +158,8 @@ public class Harry_AllUIManager : MonoBehaviour
 
     void OnClickTeleport()
     {
-        foreach (Transform tr in teleport.transform)
-        {
-            tr.gameObject.SetActive(!tr.gameObject.activeSelf);
-        }
+        teleport_Club.SetActive(!teleport_Club.activeSelf);
+        teleport_Myroom.SetActive(!teleport_Myroom.activeSelf);
     }
 
     void OnClickSchedule()

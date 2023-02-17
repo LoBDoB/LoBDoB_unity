@@ -8,10 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Harry/Scenes/Harry_SquareWorld.unity
     guid: f2066d2da529e9f4abf26ffba4117a7e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Harry/Scenes/Harry_MainLobbyDesign.unity
     guid: 777144233f8595241af6402c5a527b70
   - enabled: 1
     path: Assets/Harry/Scenes/Harry_ClubWorld.unity
     guid: 1bba2ed0fd61d1845a2756d0ae4f219f
+  - enabled: 1
+    path: Assets/Harry/Scenes/Harry_Myroom_New.unity
+    guid: 1d0024e693962424986dc3740c230242
   m_configObjects: {}

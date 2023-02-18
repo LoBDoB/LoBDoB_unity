@@ -17,6 +17,8 @@ public class Harry_SquareManager : MonoBehaviour
 
     public GameObject player;
 
+    GameObject canvas;
+
     bool canMove = true;
     public bool CanMove
     {
@@ -34,6 +36,7 @@ public class Harry_SquareManager : MonoBehaviour
             Instance = this;
         }
 
+        canvas = GameObject.Find("Canvas");
         emotion = GameObject.Find("Emotion").GetComponent<Button>();
         emotion.transform.Find("Motions").gameObject.SetActive(false);
         emotion.onClick.AddListener(OnClickEmotion);
@@ -42,7 +45,7 @@ public class Harry_SquareManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        canvas.SetActive(!Harry_AllUIManager.Instance.isTablet);
     }
 
     void OnClickEmotion()

@@ -11,9 +11,13 @@ public class Harry_PutObject : MonoBehaviour
     bool canPut = true;
     public Material can;
     public Material cant;
-    [SerializeField]
     List<Material> origMats = new List<Material>();
     Harry_ObjectCol objCol;
+
+    public List<GameObject> buildings = new List<GameObject>();
+    public List<GameObject> plants = new List<GameObject>();
+    public List<GameObject> furnitures = new List<GameObject>();
+    public List<GameObject> etc = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -163,6 +167,18 @@ public class Harry_PutObject : MonoBehaviour
             }
 
             go.GetChild(i).GetComponent<Renderer>().materials = mats;
+        }
+    }
+
+    public Transform content;
+    public void OnClickCategory(int category)
+    {
+        foreach (Transform tr in content)
+        {
+            if (tr.GetComponent<Harry_Item>().category != category)
+                tr.gameObject.SetActive(false);
+            else
+                tr.gameObject.SetActive(true);
         }
     }
 }

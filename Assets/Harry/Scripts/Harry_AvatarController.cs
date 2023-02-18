@@ -14,6 +14,8 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
     [SerializeField]
     private float _Speed;
 
+    GameObject pressF;
+
     private Dictionary<string, bool> _Status = new Dictionary<string, bool>
     {
         {"Jump", false },
@@ -29,6 +31,9 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
         Harry_SquareManager.Instance.chatInput.onSubmit.AddListener(Chat);
         Harry_AllUIManager.Instance.player = gameObject;
         Harry_SquareManager.Instance.player = gameObject;
+
+        pressF = GameObject.Find("Chair_PressF");
+        pressF.SetActive(false);
     }
 
     void Chat(string s)
@@ -251,10 +256,11 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
     float dist;
     private void SIT()
     {
-        if (Input.GetKeyDown(KeyCode.X) && !_Animator.GetCurrentAnimatorStateInfo(0).IsTag("Sit") && canSit)
+        if (Input.GetKeyDown(KeyCode.F) && !_Animator.GetCurrentAnimatorStateInfo(0).IsTag("Sit") && canSit)
         {
-            photonView.RPC("RPCCrossFade", RpcTarget.All, "sit", 0.1f); 
-            
+            photonView.RPC("RPCCrossFade", RpcTarget.All, "sit", 0.1f);
+            pressF.SetActive(false);
+
             Vector3 dir = chairPos - transform.position;
             dir.y = 0;
             Vector3 cross = Vector3.Cross(chairRot, Vector3.up);
@@ -268,7 +274,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
         {
             transform.position = Vector3.Lerp(transform.position, sitPos, Time.deltaTime * 5);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(chairRot), Time.deltaTime * 5);
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.F))
                 photonView.RPC("RPCCrossFade", RpcTarget.All, "stand", 0.1f);
         }
         if (_Animator.GetCurrentAnimatorStateInfo(0).IsTag("Standing"))
@@ -343,6 +349,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
         if (other.gameObject.layer == LayerMask.NameToLayer("Chair"))
         {
             canSit = true;
+            pressF.SetActive(true);
             BoxCollider col = (BoxCollider)other;
             chairSize = col.size;
             chairPos = other.transform.position;
@@ -355,6 +362,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
         if (other.gameObject.layer == LayerMask.NameToLayer("Chair"))
         {
             canSit = false;
+            pressF.SetActive(false);
         }
     }
 }

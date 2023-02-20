@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
 {
@@ -38,12 +39,18 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
 
     void Chat(string s)
     {
-        photonView.RPC("RPCChat", RpcTarget.All, s);
+        photonView.RPC("RPCChat", RpcTarget.All, s, gameObject.name);
         Harry_SquareManager.Instance.chatInput.text = "";
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            PhotonNetwork.Disconnect();
+            SceneManager.LoadScene("L_Custom world");
+        }
+
         if (photonView.IsMine && Harry_SquareManager.Instance.CanMove)
         {
             STATUS();
@@ -166,7 +173,11 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
 
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
-        Vector3 dir = h * Camera.main.transform.right + v * Camera.main.transform.forward;
+        Vector3 dir = Vector3.zero;
+        if (Camera.main != null)
+        {
+            dir = h * Camera.main.transform.right + v * Camera.main.transform.forward;
+        }
         dir.y = 0;
         dir.Normalize();
 
@@ -327,15 +338,12 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
     }
 
     [PunRPC]
-    void RPCChat(string s)
+    void RPCChat(string s, string parent)
     {
-        if (photonView.IsMine)
-        {
-            GameObject chat = Instantiate(Resources.Load<GameObject>("ChatCanvas"));
-            chat.GetComponent<Canvas>().worldCamera = Camera.main;
-            chat.GetComponent<Harry_SquareChat>().player = gameObject;
-            chat.transform.Find("Text").GetComponent<Text>().text = s;
-        }
+        GameObject chat = Instantiate(Resources.Load<GameObject>("ChatCanvas"));
+        chat.GetComponent<Canvas>().worldCamera = Camera.main;
+        chat.GetComponent<Harry_SquareChat>().player = GameObject.Find(parent);
+        chat.transform.Find("Text").GetComponent<Text>().text = s;
     }
 
     [SerializeField]

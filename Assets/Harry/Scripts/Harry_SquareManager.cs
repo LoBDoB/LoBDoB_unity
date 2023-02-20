@@ -18,6 +18,7 @@ public class Harry_SquareManager : MonoBehaviour
     public GameObject player;
 
     GameObject canvas;
+    GameObject decoCam;
 
     bool canMove = true;
     public bool CanMove
@@ -32,7 +33,7 @@ public class Harry_SquareManager : MonoBehaviour
             Instance = this;
         else
         {
-            Destroy(Instance);
+            Destroy(Instance.gameObject);
             Instance = this;
         }
 
@@ -40,6 +41,10 @@ public class Harry_SquareManager : MonoBehaviour
         emotion = GameObject.Find("Emotion").GetComponent<Button>();
         emotion.transform.Find("Motions").gameObject.SetActive(false);
         emotion.onClick.AddListener(OnClickEmotion);
+
+        decoCam = GameObject.Find("Deco Camera");
+        if (decoCam)
+            decoCam.SetActive(false);
     }
 
     // Update is called once per frame
@@ -58,6 +63,25 @@ public class Harry_SquareManager : MonoBehaviour
         if (player)
         {
             player.GetComponent<Harry_AvatarController>().EMOTE(s);
+        }
+    }
+
+    public void OnClickDeco()
+    {
+        if (Camera.main != null)
+        {
+            if (decoCam.activeSelf)
+            {
+                decoCam.GetComponent<Harry_DecoCam>().cc.EndInter();
+                canMove = true;
+                decoCam.SetActive(false);
+            }
+            else
+            {
+                decoCam.SetActive(true);
+                canMove = false;
+                decoCam.GetComponent<Harry_DecoCam>().cc = Camera.main.transform.parent.GetComponent<Harry_CamController>();
+            }
         }
     }
 }

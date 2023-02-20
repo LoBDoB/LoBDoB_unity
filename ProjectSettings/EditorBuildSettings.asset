@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Harry/Scenes/Harry_Myroom_New.unity
     guid: 1d0024e693962424986dc3740c230242
+  - enabled: 1
+    path: Assets/Harry/Scenes/L_Custom world.unity
+    guid: 7247d3952d7d2ca41a388dc9594ead3c
   m_configObjects: {}

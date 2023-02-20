@@ -14985,8 +14985,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a5959e5ef339e42a47c345e1feebcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpawnPos: {x: 1.351, y: -0.408, z: 0.108}
-  playerSpawnRot: {x: 0, y: 0, z: 0, w: 1}
+  playerSpawnPos: {x: -23.64, y: 0.841414, z: -22.02}
+  playerSpawnRot: {x: 0, y: 0.28161305, z: 0, w: 0.959528}
   camSpawnPos: {x: 0, y: 0, z: 0}
   camSpawnRot: {x: 0, y: 0, z: 0, w: 1}
   owl: 1

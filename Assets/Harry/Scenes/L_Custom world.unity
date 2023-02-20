@@ -3889,7 +3889,7 @@ GameObject:
   - component: {fileID: 945646691}
   - component: {fileID: 945646693}
   - component: {fileID: 945646692}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Terrain (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8165,7 +8165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2615834631246507855, guid: 535881e7b67045f4ba3e4bca7dff588a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 149.7
       objectReference: {fileID: 0}
     - target: {fileID: 2615834631246507855, guid: 535881e7b67045f4ba3e4bca7dff588a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8173,7 +8173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2615834631246507855, guid: 535881e7b67045f4ba3e4bca7dff588a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: 164.7
       objectReference: {fileID: 0}
     - target: {fileID: 2615834631246507855, guid: 535881e7b67045f4ba3e4bca7dff588a, type: 3}
       propertyPath: m_LocalRotation.w

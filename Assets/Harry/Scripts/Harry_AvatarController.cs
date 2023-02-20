@@ -16,6 +16,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
     private float _Speed;
 
     GameObject pressF;
+    GameObject discussion;
 
     private Dictionary<string, bool> _Status = new Dictionary<string, bool>
     {
@@ -35,6 +36,8 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
 
         pressF = GameObject.Find("Chair_PressF");
         pressF.SetActive(false);
+        discussion = GameObject.Find("Discussion");
+        discussion.SetActive(false);
     }
 
     void Chat(string s)
@@ -279,6 +282,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
 
             sitPos = chairPos - Vector3.Dot(dir, cross) * cross + chairSize.z * chairRot * 0.35f + chairSize.y * Vector3.up * 0.5f;
             dist = 0.5f;
+            discussion.SetActive(true);
         }
         if (_Animator.GetCurrentAnimatorStateInfo(0).IsTag("Sit")
             && !_Animator.IsInTransition(0))
@@ -286,7 +290,10 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
             transform.position = Vector3.Lerp(transform.position, sitPos, Time.deltaTime * 5);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(chairRot), Time.deltaTime * 5);
             if (Input.GetKeyDown(KeyCode.F))
+            {
                 photonView.RPC("RPCCrossFade", RpcTarget.All, "stand", 0.1f);
+                discussion.SetActive(false);
+            }
         }
         if (_Animator.GetCurrentAnimatorStateInfo(0).IsTag("Standing"))
         {

@@ -26,7 +26,8 @@ public class Harry_GameManager : MonoBehaviour
             Destroy(gameObject);
 
         decoCam = GameObject.Find("Deco Camera");
-        decoCam.SetActive(false);
+        if (decoCam)
+            decoCam.SetActive(false);
     }
 
     // Update is called once per frame

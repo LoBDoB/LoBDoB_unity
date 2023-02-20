@@ -200,7 +200,7 @@ public class VirtualBackground : MonoBehaviour
         BringTransform();
         GetObject();
         LoadAssetData();
-
+        chatIcon.SetActive(false);
 
         if (CheckAppId())
         {
@@ -443,11 +443,25 @@ public class VirtualBackground : MonoBehaviour
     }
 
 
-    //chatting 기능 관련 로
+    //chatting 기능 관련 로직
     public GameObject messageInfo;
     public Transform messageContent;
     public InputField chatInputField;
+    public GameObject chat;
+    public GameObject chatIcon;
     private int _streamId = -1;
+
+    public void HideChattingUI()
+    {
+        chat.SetActive(false);
+        chatIcon.SetActive(true);
+    }
+
+    public void ChatIconClick()
+    {
+        chatIcon.SetActive(false);
+        chat.SetActive(true);
+    }
 
     public void InstantiateMessage(string id ,string chatText)
     {

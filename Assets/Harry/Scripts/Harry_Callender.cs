@@ -59,8 +59,8 @@ public class Harry_Callender : MonoBehaviour
                 endIdx = value;
 
                 GameObject go = Instantiate(popup);
-                go.transform.parent = GameObject.Find("Canvas").transform;
-                go.transform.position = Input.mousePosition;
+                go.transform.parent = GameObject.Find("All_Canvas").transform;
+                go.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
                 isPop = true;
 
                 string title = "";
@@ -100,6 +100,7 @@ public class Harry_Callender : MonoBehaviour
                     mem.SetActive(!mem.gameObject.activeSelf);
                 });
                 go.transform.Find("EnterBtn").GetComponent<Button>().onClick.AddListener(() => EnterEvent(title, detail, go));
+                go.transform.Find("QuitBtn").GetComponent<Button>().onClick.AddListener(() => Destroy(go));
             }
         }
     }

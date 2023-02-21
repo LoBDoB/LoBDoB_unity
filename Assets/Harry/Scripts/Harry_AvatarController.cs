@@ -17,6 +17,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
 
     GameObject pressF;
     GameObject discussion;
+    GameObject custom;
 
     private Dictionary<string, bool> _Status = new Dictionary<string, bool>
     {
@@ -35,9 +36,21 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
         Harry_SquareManager.Instance.player = gameObject;
 
         pressF = GameObject.Find("Chair_PressF");
-        pressF.SetActive(false);
+        if (pressF)
+            pressF.SetActive(false);
         discussion = GameObject.Find("Discussion");
-        discussion.SetActive(false);
+        if (discussion)
+            discussion.SetActive(false);
+        custom = GameObject.Find("CustomWorld");
+        if (custom)
+        {
+            custom.transform.Find("Panel").Find("EnterButton").GetComponent<Button>().onClick.AddListener(() =>
+            {
+                PhotonNetwork.Disconnect();
+                SceneManager.LoadScene("L_Custom world");
+            });
+            custom.SetActive(false);
+        }
     }
 
     void Chat(string s)
@@ -48,12 +61,6 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            PhotonNetwork.Disconnect();
-            SceneManager.LoadScene("L_Custom world");
-        }
-
         if (photonView.IsMine && Harry_SquareManager.Instance.CanMove)
         {
             STATUS();
@@ -370,6 +377,10 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
             chairPos = other.transform.position;
             chairRot = other.transform.forward;
         }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Custom") && custom)
+        {
+            custom.SetActive(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -378,6 +389,10 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
         {
             canSit = false;
             pressF.SetActive(false);
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Custom"))
+        {
+            custom.SetActive(false);
         }
     }
 }

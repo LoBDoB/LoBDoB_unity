@@ -150,15 +150,10 @@ public class VirtualBackground : MonoBehaviour
         s.height = 240;
         var info = RtcEngine.GetScreenCaptureSources(t, s, true);
         
-       
-        //Debug.LogError(RtcEngine.StartPreview());
-        //Debug.LogError(info.Select(w => (w.sourceTitle)));
-
-        //image = (RawImage)info.Select(w => (w.thumbImage));
-        //info.
+        
         _winIdSelect.AddOptions(info.Select(w =>
                 new Dropdown.OptionData(
-                    string.Format("{0}: {1}-{2} | {3}", w.type, w.sourceName, w.sourceTitle, w.sourceId)))
+                    string.Format("{0}:{1} | {2}", w.sourceName, w.sourceTitle, w.sourceId)))
             .ToList());
     }
 

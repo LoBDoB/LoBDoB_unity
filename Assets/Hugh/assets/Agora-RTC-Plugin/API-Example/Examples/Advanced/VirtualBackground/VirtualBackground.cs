@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -44,6 +45,10 @@ public class VirtualBackground : MonoBehaviour
     Button _startShareBtn;
     Button _stopShareBtn;
     Dropdown _winIdSelect;
+
+
+    public Button a;
+    public Button b;
 
 
     GameObject obj;
@@ -144,13 +149,49 @@ public class VirtualBackground : MonoBehaviour
         s.width = 360;
         s.height = 240;
         var info = RtcEngine.GetScreenCaptureSources(t, s, true);
-        //Debug.LogError(info);
+        
+       
+        //Debug.LogError(RtcEngine.StartPreview());
+        //Debug.LogError(info.Select(w => (w.sourceTitle)));
+
+        //image = (RawImage)info.Select(w => (w.thumbImage));
+        //info.
         _winIdSelect.AddOptions(info.Select(w =>
                 new Dropdown.OptionData(
                     string.Format("{0}: {1}-{2} | {3}", w.type, w.sourceName, w.sourceTitle, w.sourceId)))
             .ToList());
     }
 
+
+
+    public bool activate = false;
+    public void ActivateScreenShare()
+    {
+
+
+        if (activate == true)
+        {
+            activate = false;
+            _winIdSelect.gameObject.SetActive(false);
+            a.gameObject.SetActive(false);
+            b.gameObject.SetActive(false);
+        }
+        else
+        {
+            activate = true;
+            _winIdSelect.gameObject.SetActive(true);
+            a.gameObject.SetActive(true);
+            b.gameObject.SetActive(true);
+        }
+    }
+
+    void HideUIBtn()
+    {
+        //yield return new WaitForSeconds(5f);
+        _winIdSelect.gameObject.SetActive(false);
+        a.gameObject.SetActive(false);
+        b.gameObject.SetActive(false);
+    }
 
     private void Start()
     {
@@ -159,7 +200,7 @@ public class VirtualBackground : MonoBehaviour
         BringTransform();
         GetObject();
         LoadAssetData();
-
+        chatIcon.SetActive(false);
 
         if (CheckAppId())
         {
@@ -169,6 +210,8 @@ public class VirtualBackground : MonoBehaviour
             InitLogFilePath();
             JoinChannel();
             OnStartButtonPress();
+
+            HideUIBtn();
         }
         chatInputField.onSubmit.AddListener(delegate { onSendButtonPress(); });
         
@@ -400,17 +443,31 @@ public class VirtualBackground : MonoBehaviour
     }
 
 
-    //chatting 기능 관련 로
+    //chatting 기능 관련 로직
     public GameObject messageInfo;
     public Transform messageContent;
     public InputField chatInputField;
+    public GameObject chat;
+    public GameObject chatIcon;
     private int _streamId = -1;
+
+    public void HideChattingUI()
+    {
+        chat.SetActive(false);
+        chatIcon.SetActive(true);
+    }
+
+    public void ChatIconClick()
+    {
+        chatIcon.SetActive(false);
+        chat.SetActive(true);
+    }
 
     public void InstantiateMessage(string id ,string chatText)
     {
         GameObject message = Instantiate(messageInfo,messageContent);
         message.transform.GetChild(0).GetComponent<Text>().text = id;
-        message.transform.GetChild(1).GetComponent<Text>().text = chatText;
+        message.transform.GetChild(2).GetComponent<Text>().text = chatText;
     }
 
     public void SendStreamMessage(int streamId, string message)

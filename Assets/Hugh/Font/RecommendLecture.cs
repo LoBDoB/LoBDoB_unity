@@ -38,7 +38,7 @@ public class RecommendLecture : MonoBehaviour
         {
             var result1 = www.downloadHandler.text;
             //JsonParsing(result1);
-            //Debug.LogError(result1);
+            Debug.LogError(result1);
             JsonParsing(result1);
         }
         if (count == 0) 
@@ -62,7 +62,7 @@ public class RecommendLecture : MonoBehaviour
             Debug.LogError("name : " + j.Value["이미지 url"]);
 
 
-            if (count == 0) 
+            if (count < 3) 
             {
                 Button btn = lecture_ImageObject[count].gameObject.GetComponent<Button>();
                 btn.onClick.AddListener(() => SurfingUrl(j.Value["URL 강좌 링크"].ToString()));

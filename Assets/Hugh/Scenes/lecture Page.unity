@@ -915,6 +915,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Safari
       objectReference: {fileID: 0}
+    - target: {fileID: 323748391658456348, guid: a09c55de95665457690f512b21f6c103, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -998,6 +1002,34 @@ PrefabInstance:
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1146.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 122.2498
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -61.12491
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a09c55de95665457690f512b21f6c103, type: 3}

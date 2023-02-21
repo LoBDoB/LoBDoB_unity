@@ -29,11 +29,11 @@ public class WebViewScript : MonoBehaviour
     //    Instance = this;
     //}
 
-    void Start()
-    {
+    //void Start()
+    //{
 
-        StartWebView("http://www.naver.com");
-    }
+    //    StartWebView("http://www.naver.com");
+    //}
 
     public void ChatWebview(string url)
     {
@@ -212,7 +212,7 @@ public class WebViewScript : MonoBehaviour
             webViewObject.rect = new Rect(0, 0, 1148, 700);
             RectTransform safariPanelRect = safariPanel.GetComponent<RectTransform>();
             safariPanelRect.sizeDelta = new Vector2(1148, 780);
-            //safariPanel.GetComponent<Animation>().Play("SafariSizeDown");
+            safariPanel.GetComponent<Animation>().Play("SafariSizeDown");
             //ScreenShareWhileVideoCall.Instance._rect = new Rect(0, 0, 1148, 700);
 
             //GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");

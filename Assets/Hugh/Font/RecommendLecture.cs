@@ -41,10 +41,14 @@ public class RecommendLecture : MonoBehaviour
             //Debug.LogError(result1);
             JsonParsing(result1);
         }
-        www.Dispose();
+        if (count == 0) 
+        {
+
+            www.Dispose();
+        }
     }
 
-    int count = 0;
+    public int count = 0;
     void JsonParsing(string text)
     {
         JObject json = JObject.Parse(text);
@@ -58,25 +62,29 @@ public class RecommendLecture : MonoBehaviour
             Debug.LogError("name : " + j.Value["이미지 url"]);
 
 
-
-            Button btn = lecture_ImageObject[count].gameObject.AddComponent<Button>();
-            btn.onClick.AddListener(() => SurfingUrl(j.Value["URL 강좌 링크"].ToString()));
-
-
-            if ("진행중" == j.Value["수강 가능 여부"].ToString())
+            if (count == 0) 
             {
-                lecture_StateObject[count].texture = lecture_State_Texture[1];
+                Button btn = lecture_ImageObject[count].gameObject.GetComponent<Button>();
+                btn.onClick.AddListener(() => SurfingUrl(j.Value["URL 강좌 링크"].ToString()));
+                if ("진행중" == j.Value["수강 가능 여부"].ToString())
+                {
+                    lecture_StateObject[count].texture = lecture_State_Texture[1];
+                }
+                else
+                {
+                    lecture_ImageObject[count].texture = lecture_State_Texture[0];
+                }
+
+
+                StartCoroutine(DownloadTexture(lecture_ImageObject[count], j.Value["이미지 url"].ToString()));
+
+                //Debug.LogError("데이터엔지니어s ");
+                count += 1;
             }
-            else
-            {
-                lecture_ImageObject[count].texture = lecture_State_Texture[0];
-            }
+            
+
 
             
-            StartCoroutine(DownloadTexture(lecture_ImageObject[count],j.Value["이미지 url"].ToString()));
-
-            //Debug.LogError("데이터엔지니어s ");
-            count += 1;
         }
     }
 

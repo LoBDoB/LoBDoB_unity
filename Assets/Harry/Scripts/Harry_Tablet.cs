@@ -5,6 +5,12 @@ using UnityEngine;
 public class Harry_Tablet : MonoBehaviour
 {
     public Harry_CamController cam;
+    [SerializeField]
+    GameObject cal;
+    [SerializeField]
+    GameObject my;
+    [SerializeField]
+    GameObject lec;
 
     bool isOn = false;
     public bool IsOn
@@ -31,6 +37,24 @@ public class Harry_Tablet : MonoBehaviour
                     cam.EndInter();
                     Camera.main.cullingMask = -1;
                 }
+            }
+            switch (Harry_AllUIManager.Instance.tabletUI)
+            {
+                case 0:
+                    cal.SetActive(true);
+                    my.SetActive(false);
+                    lec.SetActive(false);
+                    break;
+                case 1:
+                    cal.SetActive(false);
+                    my.SetActive(true);
+                    lec.SetActive(false);
+                    break;
+                case 2:
+                    cal.SetActive(false);
+                    my.SetActive(false);
+                    lec.SetActive(true);
+                    break;
             }
         }
     }

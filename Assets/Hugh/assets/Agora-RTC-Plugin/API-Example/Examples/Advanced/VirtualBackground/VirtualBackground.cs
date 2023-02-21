@@ -107,10 +107,10 @@ public class VirtualBackground : MonoBehaviour
         options.publishCameraTrack.SetValue(false);
         options.publishScreenTrack.SetValue(true);
         options.enableAudioRecordingOrPlayout.SetValue(false);
-        #if UNITY_ANDROID || UNITY_IPHONE
+#if UNITY_ANDROID || UNITY_IPHONE
             options.publishScreenCaptureAudio.SetValue(true);
             options.publishScreenCaptureVideo.SetValue(true);
-        #endif
+#endif
         options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
         var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, this.uid2), options);
         Debug.Log("JoinChannelEx returns: " + ret);
@@ -137,7 +137,7 @@ public class VirtualBackground : MonoBehaviour
     private void PrepareScreenCapture()
     {
         _winIdSelect = GameObject.Find("winIdSelect").GetComponent<Dropdown>();
-        
+
         if (_winIdSelect == null || RtcEngine == null) return;
 
         _winIdSelect.ClearOptions();
@@ -149,8 +149,8 @@ public class VirtualBackground : MonoBehaviour
         s.width = 360;
         s.height = 240;
         var info = RtcEngine.GetScreenCaptureSources(t, s, true);
-        
-        
+
+
         _winIdSelect.AddOptions(info.Select(w =>
                 new Dropdown.OptionData(
                     string.Format("{0}:{1} | {2}", w.sourceName, w.sourceTitle, w.sourceId)))
@@ -188,10 +188,45 @@ public class VirtualBackground : MonoBehaviour
         b.gameObject.SetActive(false);
     }
 
-    private void Start()
+    //private void OnEnable()
+    //{
+    //    uid1 = (uint)UnityEngine.Random.Range(0, 3000);
+    //    uid2 = (uint)UnityEngine.Random.Range(4000,6000);
+    //    BringTransform();
+    //    GetObject();
+    //    LoadAssetData();
+    //    chatIcon.SetActive(false);
+
+    //    if (CheckAppId())
+    //    {
+
+    //        InitEngine();
+    //        PrepareScreenCapture();
+    //        InitLogFilePath();
+    //        JoinChannel();
+    //        OnStartButtonPress();
+
+    //        HideUIBtn();
+    //    }
+    //    chatInputField.onSubmit.AddListener(delegate { onSendButtonPress(); });
+
+    //}
+
+    public InputField idInput;
+
+    public void GoGo()
     {
+        uid1 = UInt32.Parse(idInput.text);
+        StartCoroutine(GoAhead());
+    }
+
+    IEnumerator GoAhead()
+    {
+        yield return null;
+
+        idInput.gameObject.SetActive(false);
         uid1 = (uint)UnityEngine.Random.Range(0, 3000);
-        uid2 = (uint)UnityEngine.Random.Range(4000,6000);
+        uid2 = (uint)UnityEngine.Random.Range(4000, 6000);
         BringTransform();
         GetObject();
         LoadAssetData();
@@ -199,7 +234,7 @@ public class VirtualBackground : MonoBehaviour
 
         if (CheckAppId())
         {
-            
+
             InitEngine();
             PrepareScreenCapture();
             InitLogFilePath();
@@ -209,7 +244,6 @@ public class VirtualBackground : MonoBehaviour
             HideUIBtn();
         }
         chatInputField.onSubmit.AddListener(delegate { onSendButtonPress(); });
-        
     }
 
 
@@ -229,13 +263,13 @@ public class VirtualBackground : MonoBehaviour
 
     public static void ExtendScreenShareView(GameObject btn)
     {
-        
+
         RawImage objImg = btn.GetComponent<RawImage>();
 
         Debug.LogError(objImg.material);
 
 
-        
+
     }
 
     //Show data in AgoraBasicProfile
@@ -330,7 +364,7 @@ public class VirtualBackground : MonoBehaviour
 
     internal static void MakeVideoView(uint uid, string channelId = "", VIDEO_SOURCE_TYPE videoSourceType = VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA)
     {
-        
+
         if (videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA || videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE)
         {
             GameObject player = Instantiate(playerVideo);
@@ -349,7 +383,7 @@ public class VirtualBackground : MonoBehaviour
                 //player.transform.localScale = transform_screen.transform.localScale;
 
                 //player.transform.position = userPositions[0];
-                
+
 
                 Transform transform_screen = GameObject.Find("laptop_User").transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(0);
                 Transform userImage = player.transform.GetChild(0).GetChild(0);
@@ -358,7 +392,7 @@ public class VirtualBackground : MonoBehaviour
 
                 userRect.localPosition = new Vector3(0, 0, 0);
                 userRect.sizeDelta = new Vector2(2.415f, 1.6124f);
-                userRect.localEulerAngles = new Vector3(180,0,0);
+                userRect.localEulerAngles = new Vector3(180, 0, 0);
                 userRect.localScale = new Vector3(1, 1, 1);
 
 
@@ -401,13 +435,13 @@ public class VirtualBackground : MonoBehaviour
                 Transform transform_screen = GameObject.Find("laptop_User").transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(0);
 
                 screen.transform.SetParent(transform_screen);
-                screen_Size.localPosition = new Vector3(0,0,0);
+                screen_Size.localPosition = new Vector3(0, 0, 0);
                 screen_Size.sizeDelta = new Vector2(2.415f, 1.6124f);
                 screen_Size.localEulerAngles = new Vector3(180, 180, 0);
                 screen_Size.localScale = new Vector3(1, 1, 1);
 
                 screen.name = "ScreenShareView";
-                videoSurface.SetForUser(uid, channelId,VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN);
+                videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN);
                 videoSurface.SetEnable(true);
             }
             //differet user
@@ -459,7 +493,7 @@ public class VirtualBackground : MonoBehaviour
         chat.SetActive(true);
     }
 
-    public void InstantiateMessage(string id ,string chatText)
+    public void InstantiateMessage(string id, string chatText)
     {
         //GameObject message = Instantiate(messageInfo,messageContent);
         //message.transform.GetChild(0).GetComponent<Text>().text = id;
@@ -467,19 +501,46 @@ public class VirtualBackground : MonoBehaviour
 
         //base.InstantiateMessage(id,chatText);
 
+        //if (id == uid1.ToString())
+        //{
+        //    chatManager.Chat(true, chatText, "나", null);
+        //    chatInputField.text = "";
+        //    //GUI.FocusControl(null);
+        //}
+
         if (id == uid1.ToString())
         {
             chatManager.Chat(true, chatText, "나", null);
             chatInputField.text = "";
             //GUI.FocusControl(null);
         }
-
-        else
+        else if (id == "1")
         {
-            chatManager.Chat(false, chatText, id.ToString(), null);
+            //chatManager.Chat(false, chatText, id.ToString(), null);
+            chatManager.Chat(false, chatText, "HARRY", null);
             chatInputField.text = "";
-            //GUI.FocusControl(null);
         }
+        else if (id == "2")
+        {
+            chatManager.Chat(false, chatText, "Chloe", null);
+            chatInputField.text = "";
+        }
+        else if (id == "3")
+        {
+            chatManager.Chat(false, chatText, "DITTO", null);
+            chatInputField.text = "";
+        }
+        else if (id == "4")
+        {
+            chatManager.Chat(false, chatText, "BENEDICT", null);
+            chatInputField.text = "";
+        }
+        else if (id == "5")
+        {
+            chatManager.Chat(false, chatText, "JSON", null);
+            chatInputField.text = "";
+        }
+
 
     }
 
@@ -503,7 +564,7 @@ public class VirtualBackground : MonoBehaviour
     }
     private void onSendButtonPress()
     {
-        
+
         if (chatInputField.text == "")
         {
             Log.UpdateLog("Dont send empty message!");
@@ -518,14 +579,14 @@ public class VirtualBackground : MonoBehaviour
         else
         {
             SendStreamMessage(streamId, chatInputField.text);
-            InstantiateMessage(uid1.ToString(),chatInputField.text);
-            
-            
+            InstantiateMessage(uid1.ToString(), chatInputField.text);
+
+
         }
     }
 
 
-    
+
 
     #endregion
 }

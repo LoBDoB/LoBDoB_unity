@@ -33,8 +33,8 @@ public class Harry_Label : MonoBehaviour
         if (!cal.isPop)
         {
             GameObject go = Instantiate(popup);
-            go.transform.parent = GameObject.Find("Canvas").transform;
-            go.transform.position = Input.mousePosition;
+            go.transform.parent = GameObject.Find("All_Canvas").transform;
+            go.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             cal.isPop = true;
 
             go.transform.Find("TitleInput").GetComponent<InputField>().text = title;
@@ -79,6 +79,7 @@ public class Harry_Label : MonoBehaviour
             });
             go.transform.Find("EnterBtn").GetComponent<Button>().onClick.AddListener(() => cal.EnterEvent(title, detail, go));
             go.transform.Find("EnterBtn").GetComponent<Button>().onClick.AddListener(Delete_orig);
+            go.transform.Find("QuitBtn").GetComponent<Button>().onClick.AddListener(() => Destroy(go));
         }
     }
 

@@ -93,7 +93,7 @@ public class Test_Connect : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate("CamFollow_avatar", camSpawnPos, camSpawnRot);
         }
 
-        player.name = PhotonNetwork.NickName;
+        //player.name = PhotonNetwork.NickName;
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)

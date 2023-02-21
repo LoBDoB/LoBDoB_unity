@@ -34,7 +34,10 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
         _Animator = this.GetComponent<Animator>();
         _Ctrl = this.GetComponent<CharacterController>();
 
-        Harry_AllUIManager.Instance.player = gameObject;
+        if (photonView.IsMine)
+            Harry_AllUIManager.Instance.player = gameObject;
+
+        photonView.RPC("RPCName", RpcTarget.All, PhotonNetwork.NickName);
     }
 
     //private void LateUpdate()
@@ -603,5 +606,11 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
     {
         if (_Animator != null)
             _Animator.CrossFade(stateName, normalizedTransitionDuration);
+    }
+
+    [PunRPC]
+    void RPCName(string s)
+    {
+        gameObject.name = s;
     }
 }

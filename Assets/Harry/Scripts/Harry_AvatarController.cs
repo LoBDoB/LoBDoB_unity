@@ -31,9 +31,14 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
         _Animator = this.GetComponent<Animator>();
         _Ctrl = this.GetComponent<CharacterController>();
 
-        Harry_SquareManager.Instance.chatInput.onSubmit.AddListener(Chat);
-        Harry_AllUIManager.Instance.player = gameObject;
-        Harry_SquareManager.Instance.player = gameObject;
+        photonView.RPC("RPCName", RpcTarget.All, PhotonNetwork.NickName);
+
+        if (photonView.IsMine)
+        {
+            Harry_SquareManager.Instance.chatInput.onSubmit.AddListener(Chat);
+            Harry_AllUIManager.Instance.player = gameObject;
+            Harry_SquareManager.Instance.player = gameObject;
+        }
 
         pressF = GameObject.Find("Chair_PressF");
         if (pressF)
@@ -366,7 +371,14 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
         GameObject chat = Instantiate(Resources.Load<GameObject>("ChatCanvas"));
         chat.GetComponent<Canvas>().worldCamera = Camera.main;
         chat.GetComponent<Harry_SquareChat>().player = GameObject.Find(parent);
+        chat.transform.localPosition = Vector3.zero;
         chat.transform.Find("Text").GetComponent<Text>().text = s;
+    }
+
+    [PunRPC]
+    void RPCName(string s)
+    {
+        gameObject.name = s;
     }
 
     [SerializeField]
@@ -377,7 +389,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Chair"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Chair") && pressF)
         {
             canSit = true;
             pressF.SetActive(true);
@@ -394,7 +406,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Chair"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Chair") && pressF)
         {
             canSit = false;
             pressF.SetActive(false);

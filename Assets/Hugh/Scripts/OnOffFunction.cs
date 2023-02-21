@@ -18,7 +18,7 @@ public class OnOffFunction : MonoBehaviour
         {
             int k = i;
             
-            Button btn = checkBtn[k].gameObject.AddComponent<Button>();
+            Button btn = checkBtn[k].gameObject.GetComponent<Button>();
             btn.onClick.AddListener(() => CheckBTN(k));
         }
         

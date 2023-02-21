@@ -40,7 +40,16 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
             pressF.SetActive(false);
         discussion = GameObject.Find("Discussion");
         if (discussion)
+        {
             discussion.SetActive(false);
+            discussion.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                Destroy(GameObject.Find("Tablet"));
+                Destroy(GameObject.Find("All_Canvas"));
+                PhotonNetwork.Disconnect();
+                SceneManager.LoadScene("MeetingRoom_Club");
+            });
+        }
         custom = GameObject.Find("CustomWorld");
         if (custom)
         {

@@ -21,6 +21,8 @@ public class Harry_AllUIManager : MonoBehaviour
 
     InputField spotLight;
     Button teleport;
+    GameObject myPage;
+    GameObject lecture;
     GameObject teleport_Club;
     GameObject teleport_Myroom;
     Button schedule;
@@ -73,6 +75,24 @@ public class Harry_AllUIManager : MonoBehaviour
 
         Callender = transform.Find("CallenderUI").gameObject;
         Callender.SetActive(false);
+
+        myPage = transform.Find("MyPage").gameObject;
+        myPage.SetActive(false);
+        transform.Find("Myprofile").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            spotLight.gameObject.SetActive(false);
+            myPage.SetActive(!myPage.activeSelf);
+            Tablet(1);
+        });
+
+        lecture = transform.Find("Lecture").gameObject;
+        lecture.SetActive(false);
+        transform.Find("OnlineEdu").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            spotLight.gameObject.SetActive(false);
+            lecture.SetActive(!lecture.activeSelf);
+            Tablet(2);
+        });
 
         na = GetComponent<Network_AI>();
 
@@ -164,15 +184,16 @@ public class Harry_AllUIManager : MonoBehaviour
 
     void OnClickSchedule()
     {
-        Tablet();
         spotLight.gameObject.SetActive(false);
         Callender.SetActive(!Callender.activeSelf);
+        Tablet(0);
     }
 
     public bool isTablet = false;
-    void Tablet()
+    public int tabletUI = 0;
+    void Tablet(int idx)
     {
-        if (isTablet)
+        if (isTablet && !Callender.activeSelf && !myPage.activeSelf && !lecture.activeSelf)
         {
             isTablet = false;
             canMove = true;
@@ -182,6 +203,8 @@ public class Harry_AllUIManager : MonoBehaviour
             isTablet = true;
             canMove = false;
         }
+
+        tabletUI = idx;
     }
 
     void MyRoom()

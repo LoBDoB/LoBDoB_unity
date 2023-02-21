@@ -399,7 +399,7 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
             canSit = false;
             pressF.SetActive(false);
         }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Custom"))
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Custom") && custom)
         {
             custom.SetActive(false);
         }

@@ -476,7 +476,7 @@ public class VirtualBackground : MonoBehaviour
 
         else
         {
-            chatManager.Chat(false, chatText, "타인", null);
+            chatManager.Chat(false, chatText, id.ToString(), null);
             chatInputField.text = "";
             //GUI.FocusControl(null);
         }

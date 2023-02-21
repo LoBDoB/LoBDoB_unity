@@ -34,7 +34,8 @@ public class Harry_OwlController : MonoBehaviourPun, IPunObservable
         _Animator = this.GetComponent<Animator>();
         _Ctrl = this.GetComponent<CharacterController>();
 
-        Harry_AllUIManager.Instance.player = gameObject;
+        if (photonView.IsMine)
+            Harry_AllUIManager.Instance.player = gameObject;
     }
 
     //private void LateUpdate()

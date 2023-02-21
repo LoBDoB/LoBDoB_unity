@@ -79,7 +79,13 @@ public class Harry_Label : MonoBehaviour
             });
             go.transform.Find("EnterBtn").GetComponent<Button>().onClick.AddListener(() => cal.EnterEvent(title, detail, go));
             go.transform.Find("EnterBtn").GetComponent<Button>().onClick.AddListener(Delete_orig);
-            go.transform.Find("QuitBtn").GetComponent<Button>().onClick.AddListener(() => Destroy(go));
+            go.transform.Find("QuitBtn").GetComponent<Button>().onClick.AddListener(() => 
+            {
+                endIdx = -1;
+                startIdx = -1;
+                cal.isPop = false;
+                Destroy(go);
+            });
         }
     }
 

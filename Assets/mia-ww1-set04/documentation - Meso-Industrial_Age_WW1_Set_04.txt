@@ -1,0 +1,7 @@
+Meso-Industrial Age WW1 Set 04
+
+The included Photoshop workfiles contain layers indicating the uv-mapping, so new diffuse maps with different colours can be easily created.
+
+The models do not contain any animation tracks.
+
+The tank thread models are seperate and the corresponding part of the texture map is seamless. 

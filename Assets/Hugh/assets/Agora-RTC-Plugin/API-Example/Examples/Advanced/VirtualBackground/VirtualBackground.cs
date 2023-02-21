@@ -150,15 +150,10 @@ public class VirtualBackground : MonoBehaviour
         s.height = 240;
         var info = RtcEngine.GetScreenCaptureSources(t, s, true);
         
-       
-        //Debug.LogError(RtcEngine.StartPreview());
-        //Debug.LogError(info.Select(w => (w.sourceTitle)));
-
-        //image = (RawImage)info.Select(w => (w.thumbImage));
-        //info.
+        
         _winIdSelect.AddOptions(info.Select(w =>
                 new Dropdown.OptionData(
-                    string.Format("{0}: {1}-{2} | {3}", w.type, w.sourceName, w.sourceTitle, w.sourceId)))
+                    string.Format("{0}:{1} | {2}", w.sourceName, w.sourceTitle, w.sourceId)))
             .ToList());
     }
 
@@ -444,12 +439,13 @@ public class VirtualBackground : MonoBehaviour
 
 
     //chatting 기능 관련 로직
-    public GameObject messageInfo;
-    public Transform messageContent;
+    //public GameObject messageInfo;
+    //public Transform messageContent;
     public InputField chatInputField;
     public GameObject chat;
     public GameObject chatIcon;
     private int _streamId = -1;
+    public ChatManager chatManager;
 
     public void HideChattingUI()
     {
@@ -465,9 +461,26 @@ public class VirtualBackground : MonoBehaviour
 
     public void InstantiateMessage(string id ,string chatText)
     {
-        GameObject message = Instantiate(messageInfo,messageContent);
-        message.transform.GetChild(0).GetComponent<Text>().text = id;
-        message.transform.GetChild(2).GetComponent<Text>().text = chatText;
+        //GameObject message = Instantiate(messageInfo,messageContent);
+        //message.transform.GetChild(0).GetComponent<Text>().text = id;
+        //message.transform.GetChild(2).GetComponent<Text>().text = chatText;
+
+        //base.InstantiateMessage(id,chatText);
+
+        if (id == uid1.ToString())
+        {
+            chatManager.Chat(true, chatText, "나", null);
+            chatInputField.text = "";
+            //GUI.FocusControl(null);
+        }
+
+        else
+        {
+            chatManager.Chat(false, chatText, "타인", null);
+            chatInputField.text = "";
+            //GUI.FocusControl(null);
+        }
+
     }
 
     public void SendStreamMessage(int streamId, string message)
@@ -506,31 +519,13 @@ public class VirtualBackground : MonoBehaviour
         {
             SendStreamMessage(streamId, chatInputField.text);
             InstantiateMessage(uid1.ToString(),chatInputField.text);
-            chatInputField.text = "";
+            
+            
         }
     }
 
-    public bool BytesToFile(byte[] pSourceData, string pDestinationFileName)
-    {
-        FileStream fileStream = null;
-        try
-        {
-            fileStream = new FileStream(pDestinationFileName, FileMode.OpenOrCreate, FileAccess.Write);
-            fileStream.Write(pSourceData, 0, pSourceData.Length);  // Data는 byte[]        
-            fileStream.Close();
-            Debug.LogError("convert");
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
-        finally
-        {
-            if (fileStream != null)
-                fileStream.Dispose();
-        }
-    }
+
+    
 
     #endregion
 }
@@ -592,6 +587,7 @@ internal class UserEventHandler : IRtcEngineEventHandler
         string streamMessage = System.Text.Encoding.Unicode.GetString(data);
 
         _desktopScreenShare.InstantiateMessage(remoteUid.ToString(), streamMessage);
+
         Debug.LogError(string.Format("OnStreamMessage remoteUid: {0}, stream message: {1}", remoteUid, streamMessage));
         //Debug.LogError("arrive");
         //_desktopScreenShare.BytesToFile(data,_desktopScreenShare.savePath+"plz.png");

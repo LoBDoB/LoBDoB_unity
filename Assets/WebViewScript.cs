@@ -179,7 +179,7 @@ public class WebViewScript : MonoBehaviour
             //safariPanelRect.sizeDelta = new Vector2(1920, 1080);
 
 
-            safariPanel.GetComponent<Animation>().Play("SafariSizeUp");
+            //safariPanel.GetComponent<Animation>().Play("SafariSizeUp");
             //sharescreen area
             //ScreenShareWhileVideoCall.Instance._rect = new Rect(0, 0, 1920, 1000);
 

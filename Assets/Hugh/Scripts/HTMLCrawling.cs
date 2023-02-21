@@ -12,7 +12,7 @@ public class HTMLCrawling : MonoBehaviour
 
 
     public GameObject notice;
-    public GameObject noticePanel;
+    public Transform noticePanel;
     public GameObject safari;
     public GameObject selectPanel;
 
@@ -33,14 +33,16 @@ public class HTMLCrawling : MonoBehaviour
 
     void HacksaPanelClickFunction(int num)
     {
+        
+
         string panelURL = $"https://lily.sunmoon.ac.kr/Page2/Story/Notice.aspx?ca=00{num}";
         Debug.LogError(panelURL);
 
-        for (int i = 0; i < noticePanel.transform.childCount; i++)
-        {
-            Debug.LogError(noticePanel.transform.GetChild(i).gameObject);
-            Destroy(noticePanel.transform.GetChild(i).gameObject);
-        }
+        //for (int i = 0; i < noticePanel.transform.childCount; i++)
+        //{
+        //    Debug.LogError(noticePanel.transform.GetChild(i).gameObject);
+        //    Destroy(noticePanel.transform.GetChild(i).gameObject);
+        //}
         //NGUITools.DestroyImmediate(child.gameObject);
         //transform.DetachChildren();
 
@@ -53,6 +55,17 @@ public class HTMLCrawling : MonoBehaviour
 
     void Crawling(string URL)
     {
+        titleList = new List<string>();
+        authorList = new List<string>();
+        dateList = new List<string>();
+        urlList = new List<string>();
+
+        foreach (Transform child in noticePanel)
+        {
+            Debug.Log(child.name);
+            Destroy(child.gameObject);
+        }
+
         HtmlWeb web = new HtmlWeb();
         HtmlDocument htmlDoc = web.Load(URL);
         Debug.Log(htmlDoc.Text);
@@ -65,6 +78,8 @@ public class HTMLCrawling : MonoBehaviour
         //var htmlNodesLink = htmlDoc.DocumentNode.SelectNodes("//body//div//td////a[@href]");
         var htmlNodesAuthor = htmlDoc.DocumentNode.SelectNodes("//body//div//td");
 
+
+        
 
         foreach (var i in htmlNodesTitle)
         {

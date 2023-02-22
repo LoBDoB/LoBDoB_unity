@@ -225,7 +225,7 @@ public class VirtualBackground : MonoBehaviour
         yield return null;
 
         idInput.gameObject.SetActive(false);
-        //uid1 = (uint)UnityEngine.Random.Range(0, 3000);
+        uid1 = (uint)UnityEngine.Random.Range(0, 3000);
         uid2 = (uint)UnityEngine.Random.Range(4000, 6000);
         BringTransform();
         GetObject();
@@ -362,11 +362,20 @@ public class VirtualBackground : MonoBehaviour
     #region -- Video Render UI Logic ---
 
 
-    internal static void MakeVideoView(uint uid, string channelId = "", VIDEO_SOURCE_TYPE videoSourceType = VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA)
-    {
+    public static List<uint> idList = new List<uint>();
 
+    internal static void MakeVideoView(uint uid, string channelId = "", VIDEO_SOURCE_TYPE videoSourceType = VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA)
+    {   
         if (videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA || videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE)
         {
+            for (int i = 0; i < idList.Count(); i++)
+            {
+                if (idList[i] == uid)
+                {
+                    return;
+                }
+                idList.Add(uid);
+            }
             GameObject player = Instantiate(playerVideo);
             VideoSurface videoSurface = player.transform.GetChild(0).GetChild(0).GetComponent<VideoSurface>();
             if (ReferenceEquals(videoSurface, null)) return;
@@ -400,47 +409,44 @@ public class VirtualBackground : MonoBehaviour
                 videoSurface.SetForUser(uid, channelId);
                 videoSurface.SetEnable(true);
             }
-            
             //differet user
-            else if(uid > 3000)
-            {
-                Transform transform_screen = GameObject.Find("laptop_User").transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(0);
-                Transform screen = player.transform.GetChild(0).GetChild(0);
-                RectTransform screen_Size = screen.GetComponent<RectTransform>();
-
-
-                screen.transform.SetParent(transform_screen);
-                screen_Size.localPosition = new Vector3(0, 0, 0);
-                screen_Size.sizeDelta = new Vector2(2.5f, 1f);
-                screen_Size.localEulerAngles = new Vector3(0, 0, 0);
-                screen_Size.localScale = new Vector3(1, 1, 1);
-
-
-
-                player.name = uid.ToString();
-                videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-                videoSurface.SetEnable(true);
-                
-               
-            }
-
             else
             {
-                userCount += 1;
-                //player.transform.position = userPositions[userCount];
+                if (uid > 3000)
+                {
+                    Transform transform_screen = GameObject.Find("laptop_User").transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(0);
 
-                player.transform.position = otherTransformUse[userCount - 1].transform.position;
-                player.transform.rotation = otherTransformUse[userCount - 1].transform.rotation;
-                player.transform.localScale = otherTransformUse[userCount - 1].transform.localScale;
+                    Transform screen = player.transform.GetChild(0).GetChild(0);
+                    RectTransform screen_Size = screen.GetComponent<RectTransform>();
+                    screen.transform.SetParent(transform_screen);
+                    screen_Size.localPosition = new Vector3(0, 0, 0);
+                    screen_Size.sizeDelta = new Vector2(2.415f, 1.6124f);
+                    screen_Size.localEulerAngles = new Vector3(180, 180, 0);
+                    screen_Size.localScale = new Vector3(1, 1, 1);
+
+                    screen.name = "ScreenShareView";
+                    videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN);
+                    videoSurface.SetEnable(true);
+                }
+                else
+                {
+                    userCount += 1;
+                    //player.transform.position = userPositions[userCount];
+
+                    player.transform.position = otherTransformUse[userCount - 1].transform.position;
+                    player.transform.rotation = otherTransformUse[userCount - 1].transform.rotation;
+                    player.transform.localScale = otherTransformUse[userCount - 1].transform.localScale;
 
 
-                player.name = uid.ToString();
-                videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-                videoSurface.SetEnable(true);
+                    player.name = uid.ToString();
+                    videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                    videoSurface.SetEnable(true);
+
+                }
             }
         }
 
-        else if (videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN && uid >3000)
+        else if (videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN)
         {
             GameObject player = Instantiate(screenVideo);
             Transform screen = player.transform.GetChild(0).GetChild(0);
@@ -451,38 +457,36 @@ public class VirtualBackground : MonoBehaviour
             VideoSurface videoSurface = player.transform.GetChild(0).GetChild(0).GetComponent<VideoSurface>();
 
             if (ReferenceEquals(videoSurface, null)) return;
-
-            Transform transform_screen = GameObject.Find("laptop_User").transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(0);
-
-            screen.transform.SetParent(transform_screen);
-            screen_Size.localPosition = new Vector3(0, 0, 0);
-            screen_Size.sizeDelta = new Vector2(2.415f, 1.6124f);
-            screen_Size.localEulerAngles = new Vector3(180, 0, 0);
-            screen_Size.localScale = new Vector3(1, 1, 1);
-
-            screen.name = "ScreenShareView";
-            videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN);
-            videoSurface.SetEnable(true);
             //mine
-            //if (uid == 0)
-            //{
-                
-            //}
-            ////differet user
-            //else
-            //{
-            //    Transform transform_screen = GameObject.Find("laptop_User").transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(0);
+            if (uid == 0)
+            {
+                Transform transform_screen = GameObject.Find("laptop_User").transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(0);
 
-            //    screen.transform.SetParent(transform_screen);
-            //    screen_Size.localPosition = new Vector3(0, 0, 0);
-            //    screen_Size.sizeDelta = new Vector2(2.415f, 1.6124f);
-            //    screen_Size.localEulerAngles = new Vector3(180, 180, 0);
-            //    screen_Size.localScale = new Vector3(1, 1, 1);
+                screen.transform.SetParent(transform_screen);
+                screen_Size.localPosition = new Vector3(0, 0, 0);
+                screen_Size.sizeDelta = new Vector2(2.415f, 1.6124f);
+                screen_Size.localEulerAngles = new Vector3(180, 180, 0);
+                screen_Size.localScale = new Vector3(1, 1, 1);
 
-            //    player.name = uid.ToString();
-            //    videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN);
-            //    videoSurface.SetEnable(true);
-            //}
+                screen.name = "ScreenShareView";
+                videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN);
+                videoSurface.SetEnable(true);
+            }
+            //differet user
+            else
+            {
+                Transform transform_screen = GameObject.Find("laptop_User").transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(0);
+
+                screen.transform.SetParent(transform_screen);
+                screen_Size.localPosition = new Vector3(0, 0, 0);
+                screen_Size.sizeDelta = new Vector2(2.415f, 1.6124f);
+                screen_Size.localEulerAngles = new Vector3(180, 180, 0);
+                screen_Size.localScale = new Vector3(1, 1, 1);
+
+                player.name = uid.ToString();
+                videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN);
+                videoSurface.SetEnable(true);
+            }
         }
     }
 
@@ -532,7 +536,7 @@ public class VirtualBackground : MonoBehaviour
         //    //GUI.FocusControl(null);
         //}
 
-        if (uid1.ToString() == id)
+        if (id == uid1.ToString())
         {
             chatManager.Chat(true, chatText, "나", null);
             chatInputField.text = "";
@@ -544,22 +548,22 @@ public class VirtualBackground : MonoBehaviour
             chatManager.Chat(false, chatText, "HARRY", null);
             chatInputField.text = "";
         }
-        else if (id == "2002")
+        else if (id == "1002")
         {
             chatManager.Chat(false, chatText, "Chloe", null);
             chatInputField.text = "";
         }
-        else if (id == "3003")
+        else if (id == "1003")
         {
             chatManager.Chat(false, chatText, "DITTO", null);
             chatInputField.text = "";
         }
-        else if (id == "4004")
+        else if (id == "1004")
         {
             chatManager.Chat(false, chatText, "BENEDICT", null);
             chatInputField.text = "";
         }
-        else if (id == "5005")
+        else if (id == "1005")
         {
             chatManager.Chat(false, chatText, "JSON", null);
             chatInputField.text = "";

@@ -23,10 +23,14 @@ public class Harry_AllUIManager : MonoBehaviour
     Button teleport;
     GameObject myPage;
     GameObject lecture;
+    GameObject lectureSch;
     GameObject teleport_Club;
     GameObject teleport_Myroom;
     Button schedule;
     Transform content;
+
+    [SerializeField]
+    Button schBtn;
 
     GameObject Callender;
 
@@ -92,6 +96,15 @@ public class Harry_AllUIManager : MonoBehaviour
             spotLight.gameObject.SetActive(false);
             lecture.SetActive(!lecture.activeSelf);
             Tablet(2);
+        });
+
+        lectureSch = transform.Find("LectureSch").gameObject;
+        lectureSch.SetActive(false);
+        schBtn.onClick.AddListener(() =>
+        {
+            spotLight.gameObject.SetActive(false);
+            lecture.SetActive(!lecture.activeSelf);
+            lectureSch.SetActive(!lectureSch.activeSelf);
         });
 
         na = GetComponent<Network_AI>();

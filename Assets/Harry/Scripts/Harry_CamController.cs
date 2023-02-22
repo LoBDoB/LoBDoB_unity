@@ -26,12 +26,15 @@ public class Harry_CamController : MonoBehaviourPun
         player = GameObject.Find(PhotonNetwork.NickName);
         camPos = transform.GetChild(0).localPosition;
 
-        tablet = GameObject.Find("Tablet");
-        tablet.GetComponent<Harry_Tablet>().cam = this;
 
         if (!photonView.IsMine)
         {
             gameObject.SetActive(false);
+        }
+        else
+        {
+            tablet = GameObject.Find("Tablet");
+            tablet.GetComponent<Harry_Tablet>().cam = this;
         }
     }
 

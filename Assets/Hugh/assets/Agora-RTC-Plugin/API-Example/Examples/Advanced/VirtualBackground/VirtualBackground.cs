@@ -225,7 +225,7 @@ public class VirtualBackground : MonoBehaviour
         yield return null;
 
         idInput.gameObject.SetActive(false);
-        uid1 = (uint)UnityEngine.Random.Range(0, 3000);
+        //uid1 = (uint)UnityEngine.Random.Range(0, 3000);
         uid2 = (uint)UnityEngine.Random.Range(4000, 6000);
         BringTransform();
         GetObject();
@@ -539,28 +539,28 @@ public class VirtualBackground : MonoBehaviour
             chatInputField.text = "";
             //GUI.FocusControl(null);
         }
-        else if (id == "1")
+        else if (id == "1001")
         {
             //chatManager.Chat(false, chatText, id.ToString(), null);
             chatManager.Chat(false, chatText, "HARRY", null);
             chatInputField.text = "";
         }
-        else if (id == "2")
+        else if (id == "1002")
         {
             chatManager.Chat(false, chatText, "Chloe", null);
             chatInputField.text = "";
         }
-        else if (id == "3")
+        else if (id == "1003")
         {
             chatManager.Chat(false, chatText, "DITTO", null);
             chatInputField.text = "";
         }
-        else if (id == "4")
+        else if (id == "1004")
         {
             chatManager.Chat(false, chatText, "BENEDICT", null);
             chatInputField.text = "";
         }
-        else if (id == "5")
+        else if (id == "1005")
         {
             chatManager.Chat(false, chatText, "JSON", null);
             chatInputField.text = "";

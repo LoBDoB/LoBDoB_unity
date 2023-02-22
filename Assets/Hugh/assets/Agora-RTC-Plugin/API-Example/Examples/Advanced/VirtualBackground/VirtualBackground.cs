@@ -400,7 +400,24 @@ public class VirtualBackground : MonoBehaviour
                 videoSurface.SetForUser(uid, channelId);
                 videoSurface.SetEnable(true);
             }
+            else if(uid > 3000)
+            {
+                GameObject player1 = Instantiate(screenVideo);
+                Transform screen = player.transform.GetChild(0).GetChild(0);
+                RectTransform screen_Size = screen.GetComponent<RectTransform>();
 
+                Transform transform_screen = GameObject.Find("laptop_User").transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(0);
+
+                screen.transform.SetParent(transform_screen);
+                screen_Size.localPosition = new Vector3(0, 0, 0);
+                screen_Size.sizeDelta = new Vector2(2.415f, 1.6124f);
+                screen_Size.localEulerAngles = new Vector3(180, 180, 0);
+                screen_Size.localScale = new Vector3(1, 1, 1);
+
+                player1.name = uid.ToString();
+                videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN);
+                videoSurface.SetEnable(true);
+            }
             //differet user
             else
             {

@@ -225,7 +225,7 @@ public class VirtualBackground : MonoBehaviour
         yield return null;
 
         idInput.gameObject.SetActive(false);
-        uid1 = (uint)UnityEngine.Random.Range(0, 3000);
+        //uid1 = (uint)UnityEngine.Random.Range(0, 3000);
         uid2 = (uint)UnityEngine.Random.Range(4000, 6000);
         BringTransform();
         GetObject();

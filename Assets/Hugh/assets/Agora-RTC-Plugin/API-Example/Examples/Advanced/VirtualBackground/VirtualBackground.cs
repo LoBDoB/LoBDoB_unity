@@ -412,7 +412,7 @@ public class VirtualBackground : MonoBehaviour
                 screen.transform.SetParent(transform_screen);
                 screen_Size.localPosition = new Vector3(0, 0, 0);
                 screen_Size.sizeDelta = new Vector2(2.5f, 1f);
-                screen_Size.localEulerAngles = new Vector3(180, 0, 0);
+                screen_Size.localEulerAngles = new Vector3(0, 0, 0);
                 screen_Size.localScale = new Vector3(1, 1, 1);
 
 

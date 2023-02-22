@@ -11,14 +11,14 @@ using System;
 public class Network_AI : MonoBehaviour
 {
 
-    string url = "http://192.168.50.55:8000/button_model/";
+    string url = "http://192.168.50.132:8000/button_model/";
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        ChangeJson("기느");
+        ChangeJson("기능");
        
         
     }

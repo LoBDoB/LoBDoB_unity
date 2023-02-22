@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class RecommendLecture : MonoBehaviour
 {
-    string url = "http://192.168.50.55:8000/LRS/";
+    string url = "http://192.168.50.132:8000/LRS/";
     public Texture[] lecture_State_Texture;
     public RawImage[] lecture_ImageObject;
     public RawImage[] lecture_StateObject;

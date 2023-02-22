@@ -22,7 +22,7 @@ public class RecommendClass : MonoBehaviour
     public GameObject safari;
 
 
-    string url = "http://192.168.50.55:8000/lecture_model/";
+    string url = "http://192.168.50.132:8000/lecture_model/";
 
     public List<string> lecture_Title = new List<string>();
     public List<string> lecture_State = new List<string>();

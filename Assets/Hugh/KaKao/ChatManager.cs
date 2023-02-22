@@ -51,6 +51,7 @@ public class ChatManager : MonoBehaviour
         //현재 분까지 나오는 날짜와 유저이름 대입
         DateTime t = DateTime.Now;
         area.time = t.ToString("yyyy-MM-dd-HH-mm");
+        Debug.LogError(user);
         area.user = user;
 
         int hour = t.Hour;

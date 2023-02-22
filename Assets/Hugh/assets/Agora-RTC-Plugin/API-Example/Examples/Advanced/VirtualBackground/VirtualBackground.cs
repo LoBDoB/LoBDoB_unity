@@ -538,28 +538,28 @@ public class VirtualBackground : MonoBehaviour
             chatInputField.text = "";
             //GUI.FocusControl(null);
         }
-        else if (id == "1")
+        else if (id == "1001")
         {
             //chatManager.Chat(false, chatText, id.ToString(), null);
             chatManager.Chat(false, chatText, "HARRY", null);
             chatInputField.text = "";
         }
-        else if (id == "2")
+        else if (id == "2002")
         {
             chatManager.Chat(false, chatText, "Chloe", null);
             chatInputField.text = "";
         }
-        else if (id == "3")
+        else if (id == "3003")
         {
             chatManager.Chat(false, chatText, "DITTO", null);
             chatInputField.text = "";
         }
-        else if (id == "4")
+        else if (id == "4004")
         {
             chatManager.Chat(false, chatText, "BENEDICT", null);
             chatInputField.text = "";
         }
-        else if (id == "5")
+        else if (id == "5005")
         {
             chatManager.Chat(false, chatText, "JSON", null);
             chatInputField.text = "";

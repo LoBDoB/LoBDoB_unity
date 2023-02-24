@@ -24,6 +24,9 @@ public class ExtendCollider : MonoBehaviour
     public Sprite[] reductionExtendImage;
 
 
+    public GameObject[] hideButton;
+
+
     public bool extend = false;
 
     public bool onClick = false;
@@ -37,6 +40,10 @@ public class ExtendCollider : MonoBehaviour
     public void Click()
     {
         onClick = true;
+        for (int i = 0; i < hideButton.Length; i++)
+        {
+            hideButton[i].SetActive(true);
+        }
         if (onClick == true && extend == true)
         {
             Image btnImage = EventSystem.current.currentSelectedGameObject.GetComponent<Image>();
@@ -48,12 +55,15 @@ public class ExtendCollider : MonoBehaviour
             scale.localPosition = beginningPos;
             extend = false;
             onClick = false;
+
+            
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
         //Debug.LogError("31313");
+        
         if (onClick == true && extend == false)
         {
             RawImage forExtendScreen = other.gameObject.GetComponent<RawImage>();
@@ -72,6 +82,11 @@ public class ExtendCollider : MonoBehaviour
             scale.transform.localPosition = extendSize.localPosition;
             Image btnImage = EventSystem.current.currentSelectedGameObject.GetComponent<Image>();
             btnImage.sprite = reductionExtendImage[1];
+            for (int i = 0; i < hideButton.Length; i++)
+            {
+                hideButton[i].SetActive(false);
+            }
+
         }
     }
 }

@@ -47,6 +47,8 @@ public class VirtualBackground : MonoBehaviour
     Dropdown _winIdSelect;
 
 
+    public List<uint> otherID = new List<uint>();
+
     public Button a;
     public Button b;
 
@@ -95,7 +97,7 @@ public class VirtualBackground : MonoBehaviour
             this.Log.UpdateLog("StartScreenCaptureByDisplayId:" + nRet);
         }
 #endif
-
+        HideUIBtn();
         ScreenShareJoinChannel();
     }
 
@@ -213,10 +215,12 @@ public class VirtualBackground : MonoBehaviour
     //}
 
     public InputField idInput;
+    public InputField tokenInput;
 
     public void GoGo()
     {
         uid1 = UInt32.Parse(idInput.text);
+        _token = tokenInput.text;
         StartCoroutine(GoAhead());
     }
 
@@ -229,7 +233,7 @@ public class VirtualBackground : MonoBehaviour
         uid2 = (uint)UnityEngine.Random.Range(4000, 6000);
         BringTransform();
         GetObject();
-        LoadAssetData();
+        LoadAssetData(_token);
         chatIcon.SetActive(false);
 
         if (CheckAppId())
@@ -274,11 +278,11 @@ public class VirtualBackground : MonoBehaviour
 
     //Show data in AgoraBasicProfile
     [ContextMenu("ShowAgoraBasicProfileData")]
-    private void LoadAssetData()
+    private void LoadAssetData(string token)
     {
         if (_appIdInput == null) return;
         _appID = _appIdInput.appID;
-        _token = _appIdInput.token;
+        _token = token;
         _channelName = _appIdInput.channelName;
     }
 
@@ -684,9 +688,21 @@ internal class UserEventHandler : IRtcEngineEventHandler
 
     public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
     {
+        for (int i = 0; i < _desktopScreenShare.otherID.Count(); i++)
+        {
+            if (_desktopScreenShare.otherID[i] == uid)
+            {
+                return;
+            }
+            
+        }
+        
+
+
         _desktopScreenShare.Log.UpdateLog(string.Format("OnUserJoined uid: ${0} elapsed: ${1}", uid, elapsed));
         if (uid != _desktopScreenShare.uid1 && uid != _desktopScreenShare.uid2)
         {
+            _desktopScreenShare.otherID.Add(uid);
             //Debug.LogError("111");
             VirtualBackground.MakeVideoView(uid, _desktopScreenShare.GetChannelName(), VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
         }

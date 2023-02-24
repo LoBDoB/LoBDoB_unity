@@ -15,10 +15,30 @@ public class RecommendLecture : MonoBehaviour
 
     public GameObject safari;
 
+    public string dummyJson = @"{
+  ""searchResult"": {
+    ""인공지능과 기계학습"": {
+      ""수강 가능 여부"": ""청강가능"",
+      ""URL 강좌 링크"": ""http://www.kmooc.kr/courses/course-v1:KAISTk+KCS470+2017_K0203/about"",
+      ""이미지 url"": ""http://www.kmooc.kr/asset-v1:KAISTk+KCS470+2017_K0203+type@asset+block@_크기변환_asset-v1_KAISTk_KCS470_2017_K0203_type_asset_block_banner2.jpg""
+    },
+    ""인공지능을 위한 기계학습 입문"": {
+      ""수강 가능 여부"": ""진행중"",
+      ""URL 강좌 링크"": ""http://www.kmooc.kr/courses/course-v1:KHUk+SW_KH005+2022_T2_1/about"",
+      ""이미지 url"": ""http://www.kmooc.kr/asset-v1:KHUk+SW_KH005+2022_T2_1+type@asset+block@22_경희대_인공지능을위한기계학습입문_이원희__썸네일_1.jpg""
+    },
+    ""AI프로그래밍"": {
+      ""수강 가능 여부"": ""진행중"",
+      ""URL 강좌 링크"": ""http://www.kmooc.kr/courses/course-v1:HansungK+HSKMOOCk04+2022_T1/about"",
+      ""이미지 url"": ""http://www.kmooc.kr/asset-v1:HansungK+HSKMOOCk04+2022_T1+type@asset+block@썸네일_AI프로그래밍_326x200.jpg""
+    }
+  }
+}";
 
     private void OnEnable()
     {
-        StartCoroutine(SendMessaget("컴퓨터네트크","공학"));
+        //StartCoroutine(SendMessaget("컴퓨터네트워크","공학"));
+        JsonParsing(dummyJson);
     }
 
 

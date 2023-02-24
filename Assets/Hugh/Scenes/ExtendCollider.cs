@@ -62,13 +62,6 @@ public class ExtendCollider : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        //Debug.LogError("31313");
-        if (other.gameObject.name != "MainCameraView")
-        {
-            return;
-
-        }
-
 
         //Debug.LogError(other.gameObject.name);
         if (onClick == true && extend == false)

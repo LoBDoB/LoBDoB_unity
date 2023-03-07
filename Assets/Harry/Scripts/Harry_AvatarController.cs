@@ -38,6 +38,8 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
             Harry_SquareManager.Instance.chatInput.onSubmit.AddListener(Chat);
             Harry_AllUIManager.Instance.player = gameObject;
             Harry_SquareManager.Instance.player = gameObject;
+
+            LectureRoom.Instance.nickName.Add("LSM");
         }
 
         pressF = GameObject.Find("Chair_PressF");
@@ -329,21 +331,21 @@ public class Harry_AvatarController : MonoBehaviourPun, IPunObservable
         photonView.RPC("RPCCrossFade", RpcTarget.All, s, 0.1f);
     }
 
-    //도착 위치
+    //???? ????
     Vector3 receivePos;
-    //회전되야 하는 값
+    //???????? ???? ??
     Quaternion receiveRot;
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        //데이터 보내기
+        //?????? ??????
         if (stream.IsWriting) // isMine == true
         {
             //position, rotation
             stream.SendNext(transform.rotation);
             stream.SendNext(transform.position);
         }
-        //데이터 받기
+        //?????? ????
         else if (stream.IsReading) // ismMine == false
         {
             receiveRot = (Quaternion)stream.ReceiveNext();

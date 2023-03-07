@@ -56,6 +56,8 @@ namespace Photon.Pun.Demo.PunBasics
 			{
 				SceneManager.LoadScene("PunBasics-Launcher");
 
+				
+				
 				return;
 			}
 

@@ -9,6 +9,8 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Logger = Agora.Util.Logger;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 public class VirtualBackground : MonoBehaviour
 {
@@ -214,6 +216,7 @@ public class VirtualBackground : MonoBehaviour
 
     //}
 
+
     public InputField idInput;
     public InputField tokenInput;
 
@@ -221,7 +224,20 @@ public class VirtualBackground : MonoBehaviour
     {
         uid1 = UInt32.Parse(idInput.text);
         _token = tokenInput.text;
+
+        LectureRoom.Instance.uid.Add(uid1);
+
+        LectureRoom.Instance.Id.Add(LectureRoom.Instance.nickName[0],uid1);
+
         StartCoroutine(GoAhead());
+    }
+
+    public UserID UserInfo(string nickName, uint uid)
+    {
+        UserID userID = new UserID();
+        userID.nickName = nickName;
+        userID.uid_FaceCamera = uid;
+        return userID;
     }
 
     IEnumerator GoAhead()
@@ -246,8 +262,29 @@ public class VirtualBackground : MonoBehaviour
             OnStartButtonPress();
 
             HideUIBtn();
+            //SendStreamMessage(1, LectureRoom.Instance.Id.ToString());
+
+
+            UserID userID = new UserID();
+            UserInfo userInfo = new UserInfo();
+            userID = UserInfo(LectureRoom.Instance.nickName[0], uid1);
+
+            string jsonResult = JsonConvert.SerializeObject(userID);
+
+            int streamId = this.CreateDataStreamId();
+
+            StartCoroutine(Delay(streamId,jsonResult));
+            Debug.LogError(jsonResult);
         }
         chatInputField.onSubmit.AddListener(delegate { onSendButtonPress(); });
+    }
+
+
+    IEnumerator Delay(int streamId , string jsonResult)
+    {
+
+        yield return new WaitForSeconds(5f);
+        SendStreamMessage(streamId, jsonResult);
     }
 
 

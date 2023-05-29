@@ -32,7 +32,7 @@
 
 ## 3. 핵심 기능 및 상세 역할 :pushpin: [코드 확인](https://github.com/Seogang-LobbyDobby/lobbydobby-unity/tree/NewMain/Assets/Harry/Scripts)
 - 서강대학교 메타버스 전문대학원과 연계하여 대학생 전용 메타버스 플랫폼의 프로토타입을 기획 및 구현하였습니다.
-
+- 보다 자세한 기능은 영상을 참고해주시기 바랍니다.
 
 
 
